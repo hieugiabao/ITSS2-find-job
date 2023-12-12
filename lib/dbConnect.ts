@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+
+mongoose.set("debug", true);
+
 declare global {
   var mongoose: {
     conn: mongoose.Mongoose | null;

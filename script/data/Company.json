@@ -8,5 +8,45 @@
     "location": 1,
     "_id": "6577f2b0fc56dab42af58f62",
     "__v": 0
+  },
+  {
+    "companyName": "Google",
+    "address": "1 Dai Co Viet",
+    "description": "Chuyên lùa gà, làm việc thì its, chơi là chủ yếu",
+    "avatarUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwhqZsr5q4Dz-ecvcVg_9WzU0VsmEw6l6pYYaq9RdWKw&s",
+    "category": 2,
+    "location": 3,
+    "_id": "65783dcef7fb644db35ff29b",
+    "__v": 0
+  },
+  {
+    "companyName": "Facebook",
+    "address": "1 Dai Co Viet",
+    "description": "Ha Noi Backend",
+    "avatarUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwhqZsr5q4Dz-ecvcVg_9WzU0VsmEw6l6pYYaq9RdWKw&s",
+    "category": 1,
+    "location": 3,
+    "_id": "65783dcef7fb644db35ff29c",
+    "__v": 0
+  },
+  {
+    "companyName": "Apple",
+    "address": "1 Dai Co Viet",
+    "description": "micro ecosystem",
+    "avatarUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwhqZsr5q4Dz-ecvcVg_9WzU0VsmEw6l6pYYaq9RdWKw&s",
+    "category": 2,
+    "location": 4,
+    "_id": "65783dcef7fb644db35ff29d",
+    "__v": 0
+  },
+  {
+    "companyName": "Amazon",
+    "address": "1 Dai Co Viet",
+    "description": "micro ecosystem",
+    "avatarUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwhqZsr5q4Dz-ecvcVg_9WzU0VsmEw6l6pYYaq9RdWKw&s",
+    "category": 5,
+    "location": 2,
+    "_id": "65783dcef7fb644db35ff29e",
+    "__v": 0
   }
 ]
