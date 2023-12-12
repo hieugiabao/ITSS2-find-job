@@ -7,5 +7,6 @@ const config: Config = {
   ],
   theme: {},
   plugins: [],
+  important: true,
 };
 export default config;
