@@ -32,11 +32,13 @@ const ApplyCvSchema = new mongoose.Schema<IApplyCv>({
   job: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Job",
+    alias: "jobId",
     required: [true, "Please provide a job for this apply cv."],
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    alias: "userId",
     required: [true, "Please provide a user for this apply cv."],
   },
   status: {

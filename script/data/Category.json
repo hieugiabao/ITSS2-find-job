@@ -1,0 +1,32 @@
+[
+  {
+    "_id": 1,
+    "name": "Sản xuất và chế biến",
+    "__v": 0
+  },
+  {
+    "_id": 2,
+    "name": "Kiến trúc và xây dựng",
+    "__v": 0
+  },
+  {
+    "_id": 3,
+    "name": "Kinh doanh",
+    "__v": 0
+  },
+  {
+    "_id": 4,
+    "name": "Công nghệ - thông tin",
+    "__v": 0
+  },
+  {
+    "_id": 5,
+    "name": "Luật - nhân văn",
+    "__v": 0
+  },
+  {
+    "_id": 6,
+    "name": "Nghệ thuật - thẩm mỹ - đồ họa",
+    "__v": 0
+  }
+]

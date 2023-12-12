@@ -20,11 +20,13 @@ const ApplyMentorSchema = new mongoose.Schema<IApplyMentor>({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    alias: "userId",
     required: [true, "Please provide a user for this apply mentor."],
   },
   mentor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    alias: "mentorId",
     required: [true, "Please provide a mentor for this apply mentor."],
   },
   status: {

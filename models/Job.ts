@@ -1,13 +1,15 @@
 import mongoose from "mongoose";
 import { ICompany } from "./Company";
 import { IAddress } from "./Address";
+import { ICategory } from "./Category";
 
 export interface IJob extends mongoose.Document {
   title: string;
   description?: string;
   category: string;
   company: mongoose.Types.ObjectId | ICompany;
-  address: mongoose.Types.ObjectId | IAddress;
+  address: number | IAddress;
+  industry: number | ICategory;
   salary: number;
   experience: string;
 }
@@ -27,11 +29,13 @@ const JobSchema = new mongoose.Schema<IJob>({
   company: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Company",
+    alias: "companyId",
     required: [true, "Please provide a company for this job."],
   },
   address: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     ref: "Address",
+    alias: "addressId",
     required: [true, "Please provide an address for this job."],
   },
   salary: {
@@ -41,6 +45,12 @@ const JobSchema = new mongoose.Schema<IJob>({
   experience: {
     type: String,
     required: [true, "Please provide an experience for this job."],
+  },
+  industry: {
+    type: Number,
+    ref: "Category",
+    alias: "categoryId",
+    required: [true, "Please provide an industry for this job."],
   },
 });
 

@@ -22,7 +22,9 @@ const CommentSchema = new mongoose.Schema<IComment>({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
+    required: false,
     ref: "User",
+    alias: "userId",
   },
 });
 

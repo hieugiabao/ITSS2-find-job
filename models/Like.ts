@@ -11,11 +11,13 @@ const LikeSchema = new mongoose.Schema<ILike>({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    alias: "userId",
     required: [true, "Please provide a user for this like."],
   },
   company: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Company",
+    alias: "companyId",
     required: [true, "Please provide a company for this like."],
   },
 });

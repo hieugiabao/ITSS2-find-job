@@ -19,6 +19,7 @@ const PaymentSchema = new mongoose.Schema<IPayment>({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    alias: "userId",
     required: [true, "Please provide a user for this payment."],
   },
 });

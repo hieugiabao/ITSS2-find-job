@@ -1,10 +1,14 @@
 import mongoose from "mongoose";
+import { ICategory } from "./Category";
+import { IAddress } from "./Address";
 
 export interface ICompany extends mongoose.Document {
   companyName: string;
   address: string;
   description?: string;
   avatarUrl?: string;
+  category?: number | ICategory;
+  location?: number | IAddress;
 }
 
 const CompanySchema = new mongoose.Schema<ICompany>({
@@ -21,6 +25,16 @@ const CompanySchema = new mongoose.Schema<ICompany>({
   },
   avatarUrl: {
     type: String,
+  },
+  category: {
+    type: Number,
+    ref: "Category",
+    alias: "categoryId",
+  },
+  location: {
+    type: Number,
+    ref: "Address",
+    alias: "addressId",
   },
 });
 

@@ -43,15 +43,18 @@ const UserSchema = new mongoose.Schema<IUser>({
     required: [true, "Please provide a password."],
   },
   address: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
+    alias: "addressId",
     ref: "Address",
   },
   company: {
     type: mongoose.Schema.Types.ObjectId,
+    alias: "companyId",
     ref: "Company",
   },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
+    alias: "categoryId",
     ref: "Category",
   },
   description: {
