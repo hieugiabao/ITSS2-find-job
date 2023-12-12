@@ -131,6 +131,7 @@ export default async function handle(
         console.log(error);
         res.status(500).json({ success: false });
       }
+      break;
     case "POST":
     case "PUT":
     case "DELETE":
