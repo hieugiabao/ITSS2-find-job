@@ -15,6 +15,8 @@ export interface IUser extends mongoose.Document {
   avatarUrl?: string;
   email: string;
   password: string;
+  firstName?: string;
+  lastName?: string;
   address?: mongoose.Types.ObjectId | IAddress | null;
   company?: mongoose.Types.ObjectId | ICompany | null;
   category?: mongoose.Types.ObjectId | ICategory | null;
@@ -41,6 +43,12 @@ const UserSchema = new mongoose.Schema<IUser>({
   password: {
     type: String,
     required: [true, "Please provide a password."],
+  },
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
   },
   address: {
     type: Number,
