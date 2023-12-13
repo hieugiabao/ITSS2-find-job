@@ -59,7 +59,7 @@ export default async function handle(
 
         if (company) {
           and.push({
-            company,
+            $expr: { $eq: ["$company", { $toObjectId: company }] },
           });
         }
 
