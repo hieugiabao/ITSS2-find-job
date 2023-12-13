@@ -59,7 +59,7 @@ export default async function handle(
 
         if (company) {
           and.push({
-            company,
+            $expr: { $eq: ["$company", { $toObjectId: company }] },
           });
         }
 
@@ -77,32 +77,13 @@ export default async function handle(
           { $match: and.length > 0 ? { $and: and } : {} },
           {
             $lookup: {
-              from: "addresses",
-              localField: "address",
-              foreignField: "_id",
-              as: "location",
-            },
-          },
-          { $unwind: "$location" },
-          {
-            $lookup: {
-              from: "categories",
-              localField: "industry",
-              foreignField: "_id",
-              as: "category",
-            },
-          },
-          { $unwind: "$category" },
-          {
-            $lookup: {
               from: "companies",
               localField: "company",
               foreignField: "_id",
-              as: "companyInfor",
+              as: "companyInfo",
             },
           },
-          { $unwind: "$companyInfor" },
-
+          { $unwind: "$companyInfo" },
           {
             $sort: {
               experience: -1,

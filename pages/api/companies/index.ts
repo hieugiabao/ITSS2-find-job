@@ -45,24 +45,6 @@ export default async function handle(
           },
           {
             $lookup: {
-              from: "addresses",
-              localField: "location",
-              foreignField: "_id",
-              as: "location",
-            },
-          },
-          { $unwind: "$location" }, // Convert array to object
-          {
-            $lookup: {
-              from: "categories",
-              localField: "category",
-              foreignField: "_id",
-              as: "category",
-            },
-          },
-          { $unwind: "$category" }, // Convert array to object
-          {
-            $lookup: {
               from: "jobs",
               localField: "_id",
               foreignField: "company",
@@ -72,6 +54,12 @@ export default async function handle(
           {
             $addFields: {
               jobsCount: { $size: "$jobs" },
+            },
+          },
+          {
+            $project: {
+              jobs: 0,
+              __v: 0,
             },
           },
           {
