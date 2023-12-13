@@ -11,7 +11,7 @@ export interface IJob extends mongoose.Document {
   address: number | IAddress;
   industry: number | ICategory;
   salary: number;
-  experience: string;
+  experience: Number;
 }
 
 const JobSchema = new mongoose.Schema<IJob>({
@@ -43,7 +43,7 @@ const JobSchema = new mongoose.Schema<IJob>({
     required: [true, "Please provide a salary for this job."],
   },
   experience: {
-    type: String,
+    type: Number,
     required: [true, "Please provide an experience for this job."],
   },
   industry: {
