@@ -39,7 +39,7 @@ export default async function handle(
           });
         }
 
-        const companies = await Company.aggregate([
+        const results = await Company.aggregate([
           {
             $match: and.length > 0 ? { $and: and } : {},
           },
@@ -124,7 +124,16 @@ export default async function handle(
           },
         ]);
 
-        res.status(200).json({ success: true, data: companies });
+        res.status(200).json({
+          success: true,
+          data: results[0] ?? {
+            results: [],
+            page: 0,
+            size: 0,
+            totalPages: 0,
+            totalCount: 0,
+          },
+        });
       } catch (error) {
         console.log(error);
         res.status(500).json({ success: false });

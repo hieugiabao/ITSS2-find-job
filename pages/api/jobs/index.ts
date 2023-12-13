@@ -20,44 +20,48 @@ export default async function handle(
           add: address,
           ind: industry,
           exp: experience,
-          sal: salary
+          sal: salary,
+          com: company,
         } = req.query;
         let pageNumber = parseInt(<string>page ?? "1");
         let sizeNumber = parseInt(<string>size ?? "3");
         let and: any[] = [];
-
 
         if (query) {
           and.push({
             $or: [
               { title: { $regex: query, $options: "i" } },
               { description: { $regex: query, $options: "i" } },
-              
             ],
           });
         }
 
         if (address) {
-            and.push({
-                $expr: { $eq: ["$address", parseInt(address as string)] },
-              });
+          and.push({
+            $expr: { $eq: ["$address", parseInt(address as string)] },
+          });
         }
 
         if (industry) {
-            and.push({
-                industry: parseInt(<string>industry),
-              });
-       
+          and.push({
+            industry: parseInt(<string>industry),
+          });
         }
         if (experience) {
-            const [min, max] = (<string>experience).split("-");
-            and.push({
-              experience: {
-                $gte: parseInt(min),
-                $lte: parseInt(max),
-              },
-            });
-          }
+          const [min, max] = (<string>experience).split("-");
+          and.push({
+            experience: {
+              $gte: parseInt(min),
+              $lte: parseInt(max),
+            },
+          });
+        }
+
+        if (company) {
+          and.push({
+            company,
+          });
+        }
 
         if (salary) {
           const [min, max] = (<string>salary).split("-");
@@ -67,11 +71,10 @@ export default async function handle(
               $lte: parseInt(max),
             },
           });
-         
         }
 
-        const jobs = await Job.aggregate([
-          {  $match: and.length > 0 ? { $and: and } : {} },
+        const results = await Job.aggregate([
+          { $match: and.length > 0 ? { $and: and } : {} },
           {
             $lookup: {
               from: "addresses",
@@ -89,7 +92,7 @@ export default async function handle(
               as: "category",
             },
           },
-          { $unwind: "$category" }, 
+          { $unwind: "$category" },
           {
             $lookup: {
               from: "companies",
@@ -99,7 +102,7 @@ export default async function handle(
             },
           },
           { $unwind: "$companyInfor" },
-         
+
           {
             $sort: {
               experience: -1,
@@ -152,7 +155,16 @@ export default async function handle(
           },
         ]);
 
-        res.status(200).json({ success: true, data: jobs });
+        res.status(200).json({
+          success: true,
+          data: results[0] ?? {
+            results: [],
+            page: 0,
+            size: 0,
+            totalPages: 0,
+            totalCount: 0,
+          },
+        });
       } catch (error) {
         console.log(error);
         res.status(500).json({ success: false });
