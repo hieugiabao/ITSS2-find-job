@@ -17,9 +17,9 @@ export interface IUser extends mongoose.Document {
   password: string;
   firstName?: string;
   lastName?: string;
-  address?: mongoose.Types.ObjectId | IAddress | null;
+  address?: number | IAddress | null;
   company?: mongoose.Types.ObjectId | ICompany | null;
-  category?: mongoose.Types.ObjectId | ICategory | null;
+  category?: number | ICategory | null;
   description?: string;
   level?: string;
   experience?: number;

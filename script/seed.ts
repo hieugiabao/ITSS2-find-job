@@ -29,7 +29,7 @@ async function main() {
     session.startTransaction();
     try {
       spinner.start("Loading data files...");
-      const dataFiles = glob.sync("script/data/*.json");
+      const dataFiles = glob.sync("data/*.json");
       spinner.succeed(`Loaded ${dataFiles.length} data files`);
 
       for (const file of dataFiles) {
@@ -38,7 +38,7 @@ async function main() {
           fs.readFileSync(path.resolve(process.cwd(), file), "utf-8")
         );
 
-        const collectionName = file.split("\\")[2].split(".")[0];
+        const collectionName = file.split("\\")[1].split(".")[0];
         const collection = (await import(`../models/${collectionName}`))
           .default;
 
