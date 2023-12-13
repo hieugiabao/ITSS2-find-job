@@ -13,7 +13,13 @@ export default async function handle(
   switch (method) {
     case "GET":
       try {
-        const { page, size, q: query, l: location, ind: industry } = req.query;
+        const {
+          page,
+          size,
+          q: query,
+          add: location,
+          ind: industry,
+        } = req.query;
         let pageNumber = parseInt((page as string) ?? "1");
         let sizeNumber = parseInt((size as string) ?? "3");
         let and: any[] = [];

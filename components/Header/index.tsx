@@ -15,7 +15,6 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Image from "next/image";
 import Logo from "../../public/images/logo.png";
-import { Button } from "@mui/material";
 
 const pages = ["Trang chủ", "Tìm mentor"];
 
@@ -53,6 +52,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+interface HeaderProps {}
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

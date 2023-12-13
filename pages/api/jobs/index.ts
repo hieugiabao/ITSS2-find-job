@@ -24,7 +24,7 @@ export default async function handle(
           com: company,
         } = req.query;
         let pageNumber = parseInt(<string>page ?? "1");
-        let sizeNumber = parseInt(<string>size ?? "3");
+        let sizeNumber = parseInt(<string>size ?? "9");
         let and: any[] = [];
 
         if (query) {
@@ -80,10 +80,10 @@ export default async function handle(
               from: "addresses",
               localField: "address",
               foreignField: "_id",
-              as: "location",
+              as: "address",
             },
           },
-          { $unwind: "$location" },
+          { $unwind: "$address" },
           {
             $lookup: {
               from: "categories",
@@ -98,10 +98,10 @@ export default async function handle(
               from: "companies",
               localField: "company",
               foreignField: "_id",
-              as: "companyInfor",
+              as: "company",
             },
           },
-          { $unwind: "$companyInfor" },
+          { $unwind: "$company" },
 
           {
             $sort: {
