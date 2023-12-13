@@ -11,7 +11,7 @@ interface JobItemProps {
 const JobItem = ({ data }: JobItemProps) => {
   const company = data.company as ICompany;
   return (
-    <Card sx={{ display: "flex" }} className="w-[32%]">
+    <Card sx={{ display: "flex" }} className="w-[30%]">
       <CardMedia
         component="img"
         sx={{ width: 151, p: 1 }}

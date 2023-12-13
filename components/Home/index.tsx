@@ -30,8 +30,8 @@ const Home = ({
 }: Props) => {
   return (
     <>
-      <Header />
-      <div className="flex mx-24 gap-6 my-3">
+      <Header query={searchData.q} handleChange={handleChange} />
+      <div className="flex mx-36 gap-6 my-3">
         <div className="my-5 text-xl">Việc làm mới nhất</div>
         <FormControl sx={{ m: 1, minWidth: 200 }}>
           <Select
@@ -112,7 +112,7 @@ const Home = ({
       {/* job */}
       {jobData.length > 0 ? (
         <div className="w-full mx-auto">
-          <div className="mx-24 flex flex-wrap gap-6 gap-y-10 mt-10">
+          <div className="mx-36 flex flex-wrap gap-6 gap-y-10 mt-10">
             {jobData.map((job) => (
               <JobItem data={job} key={job._id} />
             ))}
@@ -134,12 +134,12 @@ const Home = ({
         </div>
       )}
       {/* company */}
-      <div className="mx-24 flex flex-wrap gap-6 gap-y-10 mt-10">
+      <div className="mx-36 flex flex-wrap gap-6 gap-y-10 mt-10">
         <h1 className="text-xl">Công ty hàng đầu</h1>
       </div>
       {companyData.length > 0 ? (
         <div className="w-full mx-auto">
-          <div className="mx-24 flex flex-wrap gap-20 gap-y-10 mt-10 justify-center">
+          <div className="mx-36 flex flex-wrap gap-20 gap-y-10 mt-10 justify-center">
             {companyData.map((company) => (
               <CompanyItem data={company} key={company._id} />
             ))}

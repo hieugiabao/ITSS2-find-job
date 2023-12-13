@@ -53,9 +53,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-interface HeaderProps {}
+interface HeaderProps {
+  query: string;
+  handleChange: (filer: string, value: string | number) => void;
+}
 
-const Header = () => {
+const Header = ({ query, handleChange }: HeaderProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -198,7 +201,12 @@ const Header = () => {
               <StyledInputBase
                 placeholder="Search for…"
                 inputProps={{ "aria-label": "search" }}
-                className="py-1"
+                className="py-1 w-full"
+                value={query}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  handleChange("q", e.target.value);
+                }}
               />
             </Search>
             <IconButton
