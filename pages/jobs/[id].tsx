@@ -26,7 +26,7 @@ const JobDetail = () => {
     <div>
       <Header query="" handleChange={handleChange} />
       <div className="pt-20 px-28 flex bg-gray-100 min-h-screen gap-9">
-        <div className="w-[75%]">
+        <div className="w-[70%]">
           <Card sx={{ display: "flex" }} className="h-52">
             <CardMedia
               component="img"
@@ -148,7 +148,7 @@ const JobDetail = () => {
             </Grid>
           </div>
         </div>
-        <div className="w-[20%]">
+        <div className="flex-1">
           <div className="bg-white p-5 font-bold rounded">
             Việc làm đang tuyển dụng
           </div>
