@@ -159,7 +159,7 @@ const Header = ({ query, handleChange }: HeaderProps) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" className="bg-white text-black">
+      <AppBar position="static" className="bg-white text-black z-10">
         <Toolbar>
           <IconButton
             size="large"
