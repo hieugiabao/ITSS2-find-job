@@ -32,8 +32,8 @@ const Home = ({
     <>
       <Header query={searchData.q} handleChange={handleChange} />
       <main className="bg-gray-100 pt-[1px]">
-        <div className="flex mx-28 gap-6 my-3">
-          <div className="my-5 text-xl">Việc làm mới nhất</div>
+        <div className="flex mx-28 gap-4 my-3">
+          <div className="my-5 text-xl ">Việc làm mới nhất</div>
           <FormControl sx={{ m: 1, minWidth: 200, backgroundColor: "#fff" }}>
             <Select
               value={`${searchData.add}`}

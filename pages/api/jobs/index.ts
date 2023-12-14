@@ -67,8 +67,8 @@ export default async function handle(
           const [min, max] = (<string>salary).split("-");
           and.push({
             salary: {
-              $gte: parseInt(min),
-              $lte: parseInt(max),
+              $gte: parseInt(min) * 1e6,
+              $lte: parseInt(max) * 1e6,
             },
           });
         }
