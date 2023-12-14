@@ -31,7 +31,7 @@ const Home = ({
   return (
     <>
       <Header query={searchData.q} handleChange={handleChange} />
-      <main className="bg-gray-100 pt-[1px]">
+      <main className="bg-gray-100 pt-[1px] min-h-screen">
         <div className="flex mx-28 gap-4 my-3">
           <div className="my-5 text-xl ">Việc làm mới nhất</div>
           <FormControl sx={{ m: 1, minWidth: 200, backgroundColor: "#fff" }}>

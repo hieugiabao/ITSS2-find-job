@@ -17,10 +17,10 @@ const CompanyItem = ({ data }: CompanyItemProps) => {
       <CardActionArea>
         <CardMedia
           component="img"
-          width={200}
-          height="100"
+          width={280}
           image={data.avatarUrl}
           alt="green iguana"
+          className="h-48"
         />
         <CardContent>
           <Typography
