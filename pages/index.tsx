@@ -1,14 +1,19 @@
 import { GetServerSideProps } from "next";
-import dbConnect from "../lib/dbConnect";
 import Home from "../components/Home";
 import { useCallback, useEffect, useState } from "react";
 import { IJob } from "../models/Job";
 import axios from "axios";
 import { ICompany } from "../models/Company";
-import { useDebounce } from "use-debounce";
 
-type Props = {
-  isConnected: boolean;
+type PageResult<T> = {
+  data: {
+    results: T[];
+    totalPages: number;
+    totalCount: number;
+    page: number;
+    size: number;
+  };
+  success: boolean;
 };
 
 export type SearchData = {
@@ -19,7 +24,7 @@ export type SearchData = {
   sal: string;
 };
 
-const Index = ({ isConnected }: Props) => {
+const Index = () => {
   const [jobData, setJobData] = useState<IJob[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
@@ -50,7 +55,7 @@ const Index = ({ isConnected }: Props) => {
   const fetchData = useCallback(async () => {
     try {
       const apiUrl = "/api/jobs";
-      const res = await axios.get(apiUrl, {
+      const res = await axios.get<PageResult<IJob>>(apiUrl, {
         params: {
           ...searchData,
           page,
@@ -102,18 +107,6 @@ const Index = ({ isConnected }: Props) => {
       handleChange={handleChange}
     />
   );
-};
-
-/* Trying connect to mongodb */
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  try {
-    await dbConnect();
-
-    return { props: { isConnected: true } };
-  } catch (err) {
-    console.log(err);
-    return { props: { isConnected: false } };
-  }
 };
 
 export default Index;

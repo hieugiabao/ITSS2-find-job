@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -15,6 +15,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Image from "next/image";
 import Logo from "../../public/images/logo.png";
+import Link from "next/link";
 
 const pages = ["Trang chủ", "Tìm mentor"];
 
@@ -161,15 +162,17 @@ const Header = ({ query, handleChange }: HeaderProps) => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" className="bg-white text-black z-10">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <Image src={Logo} width={48} height={48} alt="Logo" />
-          </IconButton>
+          <Link href={"/"}>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
+            >
+              <Image src={Logo} width={48} height={48} alt="Logo" />
+            </IconButton>
+          </Link>
           <Box
             sx={{
               flexGrow: 1,
