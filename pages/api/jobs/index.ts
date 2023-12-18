@@ -1,6 +1,7 @@
 import dbConnect from "@/dbConnect";
 import { NextApiRequest, NextApiResponse } from "next";
 import Job from "../../../models/Job";
+import { getJobsPaginated } from "@/job.service";
 
 export default async function handle(
   req: NextApiRequest,
@@ -25,139 +26,25 @@ export default async function handle(
         } = req.query;
         let pageNumber = parseInt(<string>page ?? "1");
         let sizeNumber = parseInt(<string>size ?? "9");
-        let and: any[] = [];
 
-        if (query) {
-          and.push({
-            $or: [
-              { title: { $regex: query, $options: "i" } },
-              { description: { $regex: query, $options: "i" } },
-            ],
-          });
-        }
-
-        if (address) {
-          and.push({
-            $expr: { $eq: ["$address", parseInt(address as string)] },
-          });
-        }
-
-        if (industry) {
-          and.push({
-            industry: parseInt(<string>industry),
-          });
-        }
-        if (experience) {
-          const [min, max] = (<string>experience).split("-");
-          and.push({
-            experience: {
-              $gte: parseInt(min),
-              $lte: parseInt(max),
-            },
-          });
-        }
-
-        if (company) {
-          and.push({
-            $expr: { $eq: ["$company", { $toObjectId: company }] },
-          });
-        }
-
-        if (salary) {
-          const [min, max] = (<string>salary).split("-");
-          and.push({
-            salary: {
-              $gte: parseInt(min) * 1e6,
-              $lte: parseInt(max) * 1e6,
-            },
-          });
-        }
-
-        const results = await Job.aggregate([
-          { $match: and.length > 0 ? { $and: and } : {} },
+        const result = await getJobsPaginated(
           {
-            $lookup: {
-              from: "addresses",
-              localField: "address",
-              foreignField: "_id",
-              as: "address",
-            },
-          },
-          { $unwind: "$address" },
-          {
-            $lookup: {
-              from: "categories",
-              localField: "industry",
-              foreignField: "_id",
-              as: "category",
-            },
-          },
-          { $unwind: "$category" },
-          {
-            $lookup: {
-              from: "companies",
-              localField: "company",
-              foreignField: "_id",
-              as: "company",
-            },
-          },
-          { $unwind: "$company" },
-
-          {
-            $sort: {
-              experience: -1,
-            },
+            page: pageNumber,
+            size: sizeNumber,
           },
           {
-            $facet: {
-              results: [
-                { $skip: (pageNumber - 1) * sizeNumber },
-                { $limit: sizeNumber },
-              ],
-              totalCount: [
-                {
-                  $count: "count",
-                },
-              ],
-            },
-          },
-          {
-            $unwind: "$totalCount",
-          },
-          {
-            $project: {
-              results: 1,
-              page: {
-                $cond: {
-                  if: {
-                    $gt: ["$totalCount.count", (pageNumber - 1) * sizeNumber],
-                  },
-                  then: pageNumber,
-                  else: "$$REMOVE",
-                },
-              },
-              size: {
-                $cond: {
-                  if: {
-                    $gt: ["$totalCount.count", (pageNumber - 1) * sizeNumber],
-                  },
-                  then: sizeNumber,
-                  else: "$$REMOVE",
-                },
-              },
-              totalPages: {
-                $ceil: {
-                  $divide: ["$totalCount.count", sizeNumber],
-                },
-              },
-              totalCount: "$totalCount.count",
-            },
-          },
-        ]);
+            query: query as string,
+            address: address as string,
+            industry: industry as string,
+            experience: experience as string,
+            salary: salary as string,
+            company: company as string,
+          }
+        );
 
         res.status(200).json({
           success: true,
-          data: results[0] ?? {
+          data: result ?? {
             results: [],
             page: 0,
             size: 0,

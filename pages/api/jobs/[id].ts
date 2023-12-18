@@ -1,6 +1,6 @@
 import dbConnect from "@/dbConnect";
+import { getJobById } from "@/job.service";
 import { NextApiRequest, NextApiResponse } from "next";
-import Job from "../../../models/Job";
 
 export default async function handle(
   req: NextApiRequest,
@@ -14,36 +14,7 @@ export default async function handle(
   switch (method) {
     case "GET":
       try {
-       const job = await Job.aggregate([
-        { $match: { $expr : { $eq: [ '$_id' , { $toObjectId: id } ] } } },
-        {
-          $lookup: {
-            from: "addresses",
-            localField: "address",
-            foreignField: "_id",
-            as: "location",
-          },
-        },
-        { $unwind: "$location" },
-        {
-          $lookup: {
-            from: "categories",
-            localField: "industry",
-            foreignField: "_id",
-            as: "category",
-          },
-        },
-        { $unwind: "$category" }, 
-        {
-          $lookup: {
-            from: "companies",
-            localField: "company",
-            foreignField: "_id",
-            as: "companyInfor",
-          },
-        },
-        { $unwind: "$companyInfor" },
-      ]);
+        const job = await getJobById(id as string);
 
         res.status(200).json({ success: true, data: job });
       } catch (error) {
