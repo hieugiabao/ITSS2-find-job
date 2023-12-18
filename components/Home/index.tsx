@@ -1,11 +1,18 @@
-import { MenuItem, Pagination, FormControl, Select } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  FormControl,
+  MenuItem,
+  Pagination,
+  Select,
+} from "@mui/material";
+import { Dispatch, SetStateAction } from "react";
+import { ICompany } from "../../models/Company";
 import { IJob } from "../../models/Job";
+import { SearchData } from "../../pages";
+import CompanyItem from "../CompanyItem";
 import Header from "../Header";
 import JobItem from "../JobItem";
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
-import CompanyItem from "../CompanyItem";
-import { ICompany } from "../../models/Company";
-import { SearchData } from "../../pages";
 
 interface Props {
   jobData: IJob[];
@@ -16,6 +23,8 @@ interface Props {
   totalCompanyPages: number;
   searchData: SearchData;
   handleChange: (filer: string, value: string | number) => void;
+  isError: boolean;
+  isLoading: boolean;
 }
 
 const Home = ({
@@ -27,10 +36,12 @@ const Home = ({
   totalCompanyPages,
   searchData,
   handleChange,
+  isError,
+  isLoading,
 }: Props) => {
   return (
     <>
-      <Header query={searchData.q} handleChange={handleChange} />
+      <Header />
       <main className="bg-gray-100 pt-[1px] min-h-screen">
         <div className="flex mx-28 gap-4 my-3">
           <div className="my-5 text-xl ">Việc làm mới nhất</div>
@@ -110,56 +121,70 @@ const Home = ({
             </Select>
           </FormControl>
         </div>
-        {/* job */}
-        {jobData.length > 0 ? (
-          <div className="w-full mx-auto">
+
+        {isLoading ? (
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 12 }}>
+            <CircularProgress />
+          </Box>
+        ) : isError ? (
+          <p>
+            Có lỗi xảy ra. Vui lòng liên hệ quản trị viên để biết thêm thông tin
+            chi tiết
+          </p>
+        ) : (
+          <>
+            {/* job */}
+            {jobData.length > 0 ? (
+              <div className="w-full mx-auto">
+                <div className="mx-28 flex flex-wrap gap-6 gap-y-10 mt-10">
+                  {jobData.map((job) => (
+                    <JobItem data={job} key={job._id} />
+                  ))}
+                </div>
+                <div className="mt-6 w-full flex justify-center">
+                  <Pagination
+                    count={totalPages}
+                    variant="text"
+                    color="primary"
+                    shape="rounded"
+                    className="max-w-[350px]"
+                    onChange={(_e, page) => setPage(page)}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="w-full text-center text-3xl my-10">
+                Không có công việc phù hợp
+              </div>
+            )}
+            {/* company */}
             <div className="mx-28 flex flex-wrap gap-6 gap-y-10 mt-10">
-              {jobData.map((job) => (
-                <JobItem data={job} key={job._id} />
-              ))}
+              <h1 className="text-xl">Công ty hàng đầu</h1>
             </div>
-            <div className="mt-6 w-full flex justify-center">
-              <Pagination
-                count={totalPages}
-                variant="text"
-                color="primary"
-                shape="rounded"
-                className="max-w-[350px]"
-                onChange={(_e, page) => setPage(page)}
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="w-full text-center text-3xl my-10">
-            Không có công việc phù hợp
-          </div>
-        )}
-        {/* company */}
-        <div className="mx-28 flex flex-wrap gap-6 gap-y-10 mt-10">
-          <h1 className="text-xl">Công ty hàng đầu</h1>
-        </div>
-        {companyData.length > 0 ? (
-          <div className="w-full mx-auto">
-            <div className="mx-28 flex flex-wrap gap-20 gap-y-10 mt-10 justify-center">
-              {companyData.map((company) => (
-                <CompanyItem data={company} key={company._id} />
-              ))}
-            </div>
-            <div className="mt-20 pb-80 w-full flex justify-center">
-              <Pagination
-                count={totalCompanyPages}
-                variant="text"
-                color="primary"
-                shape="rounded"
-                className="max-w-[350px]"
-                onChange={(_e, page) => setCompanyPage(page)}
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="w-full text-center text-3xl my-10">
-            Không có công ty phù hợp
-          </div>
+            {companyData.length > 0 ? (
+              <div className="w-full mx-auto">
+                <div className="mx-28 flex flex-wrap gap-20 gap-y-10 mt-10 justify-center">
+                  {companyData.map((company) => (
+                    <CompanyItem data={company} key={company._id} />
+                  ))}
+                </div>
+                <div className="mt-20 pb-80 w-full flex justify-center">
+                  <Pagination
+                    count={totalCompanyPages}
+                    variant="text"
+                    color="primary"
+                    shape="rounded"
+                    className="max-w-[350px]"
+                    onChange={(_e, page) => setCompanyPage(page)}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="w-full text-center text-3xl my-10">
+                Không có công ty phù hợp
+              </div>
+            )}
+          </>
         )}
       </main>
     </>

@@ -16,6 +16,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import Image from "next/image";
 import Logo from "../../public/images/logo.png";
 import Link from "next/link";
+import { useSearchContext } from "../../context/search-context";
 
 const pages = ["Trang chủ", "Tìm mentor"];
 
@@ -54,12 +55,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-interface HeaderProps {
-  query: string;
-  handleChange: (filer: string, value: string | number) => void;
-}
-
-const Header = ({ query, handleChange }: HeaderProps) => {
+const Header = () => {
+  const { query, setQuery } = useSearchContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -207,8 +204,7 @@ const Header = ({ query, handleChange }: HeaderProps) => {
                 className="py-1 w-full"
                 value={query}
                 onChange={(e) => {
-                  console.log(e.target.value);
-                  handleChange("q", e.target.value);
+                  setQuery(e.target.value);
                 }}
               />
             </Search>
