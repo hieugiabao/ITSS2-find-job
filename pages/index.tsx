@@ -9,6 +9,7 @@ import { ApiResponse, PageResult } from "../types";
 import { GetServerSideProps } from "next";
 import { getJobsPaginated } from "@/job.service";
 import { getCompaniesPaginated } from "@/company.service";
+import dbConnect from "@/dbConnect";
 
 export type SearchData = {
   add: string;
@@ -50,7 +51,7 @@ const Index: FC<Props> = ({
           q: queryDebounce,
         },
       },
-      false
+      initialCompanies === null
     );
 
   const [jobsPageData, fetchJobLoading, fetchJobError] = useFetchData<
@@ -65,7 +66,7 @@ const Index: FC<Props> = ({
         q: queryDebounce,
       },
     },
-    false
+    initialJobs === null
   );
 
   const handleChange = (filer: string, value: string | number) => {
@@ -99,6 +100,8 @@ const Index: FC<Props> = ({
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   try {
+    await dbConnect();
+
     const [jobs, companies] = await Promise.all([
       getJobsPaginated({ page: 1, size: 9 }),
       getCompaniesPaginated({ page: 1, size: 3 }),

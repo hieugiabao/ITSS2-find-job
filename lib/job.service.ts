@@ -30,17 +30,17 @@ async function getJobsPaginated(
 
   if (address) {
     and.push({
-      $expr: { $eq: ["$address", parseInt(address as string)] },
+      $expr: { $eq: ["$address", parseInt(address)] },
     });
   }
 
   if (industry) {
     and.push({
-      industry: parseInt(<string>industry),
+      industry: parseInt(industry),
     });
   }
   if (experience) {
-    const [min, max] = (<string>experience).split("-");
+    const [min, max] = experience.split("-");
     and.push({
       experience: {
         $gte: parseInt(min),
@@ -56,7 +56,7 @@ async function getJobsPaginated(
   }
 
   if (salary) {
-    const [min, max] = (<string>salary).split("-");
+    const [min, max] = salary.split("-");
     and.push({
       salary: {
         $gte: parseInt(min) * 1e6,

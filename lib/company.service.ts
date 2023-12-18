@@ -27,13 +27,13 @@ async function getCompaniesPaginated(
 
   if (location) {
     and.push({
-      $expr: { $eq: ["$location", parseInt(location as string)] },
+      $expr: { $eq: ["$location", parseInt(location)] },
     });
   }
 
   if (industry) {
     and.push({
-      $expr: { $eq: ["$category", parseInt(industry as string)] },
+      $expr: { $eq: ["$category", parseInt(industry)] },
     });
   }
 
