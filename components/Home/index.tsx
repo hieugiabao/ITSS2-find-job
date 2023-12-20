@@ -25,6 +25,8 @@ interface Props {
   handleChange: (filer: string, value: string | number) => void;
   isError: boolean;
   isLoading: boolean;
+  jobPage: number;
+  companyPage: number;
 }
 
 const Home = ({
@@ -38,6 +40,8 @@ const Home = ({
   handleChange,
   isError,
   isLoading,
+  jobPage,
+  companyPage,
 }: Props) => {
   return (
     <>
@@ -138,7 +142,7 @@ const Home = ({
             {/* job */}
             {jobData.length > 0 ? (
               <div className="w-full mx-auto">
-                <div className="mx-28 flex flex-wrap gap-6 gap-y-10 mt-10">
+                <div className="mx-28 flex flex-wrap gap-6 gap-y-10 mt-10 justify-between">
                   {jobData.map((job) => (
                     <JobItem data={job} key={job._id} />
                   ))}
@@ -151,6 +155,7 @@ const Home = ({
                     shape="rounded"
                     className="max-w-[350px]"
                     onChange={(_e, page) => setPage(page)}
+                    page={jobPage}
                   />
                 </div>
               </div>
@@ -178,6 +183,7 @@ const Home = ({
                     shape="rounded"
                     className="max-w-[350px]"
                     onChange={(_e, page) => setCompanyPage(page)}
+                    page={companyPage}
                   />
                 </div>
               </div>

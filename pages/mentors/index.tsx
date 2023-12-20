@@ -49,7 +49,7 @@ const Index: FC<Props> = ({ mentors: initialMentors }) => {
       params: {
         ...searchData,
         page,
-        size: 6,
+        size: 4,
         q: queryDebounce,
       },
     },
@@ -164,6 +164,7 @@ const Index: FC<Props> = ({ mentors: initialMentors }) => {
                     color="primary"
                     shape="rounded"
                     className="max-w-[350px]"
+                    page={page}
                     onChange={(_e, page) => setPage(page)}
                   />
                 </div>
@@ -185,7 +186,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
     await dbConnect();
     const mentorsData = await getMentorsPaginated({
       page: 1,
-      size: 6,
+      size: 4,
     });
 
     return {

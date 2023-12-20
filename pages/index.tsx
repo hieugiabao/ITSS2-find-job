@@ -79,6 +79,7 @@ const Index: FC<Props> = ({
   return (
     <Home
       jobData={jobsPageData?.data?.results ?? initialJobs?.results ?? []}
+      jobPage={jobPage}
       setPage={setJobPage}
       totalPages={
         jobsPageData?.data?.totalPages ?? initialJobs?.totalPages ?? 0
@@ -87,6 +88,7 @@ const Index: FC<Props> = ({
         companiesPageData?.data?.results ?? initialCompanies?.results ?? []
       }
       setCompanyPage={setCompanyPage}
+      companyPage={companyPage}
       totalCompanyPages={
         companiesPageData?.data?.totalPages ?? initialCompanies?.totalPages ?? 0
       }
