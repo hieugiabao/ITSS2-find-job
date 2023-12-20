@@ -16,6 +16,9 @@
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.2",
+    "firebase": "^10.7.1",
+    "firebase-admin": "^11.10.1",
+    "formidable": "^3.5.1",
     "mongoose": "^7.4.2",
     "next": "latest",
     "postcss": "^8.4.32",
@@ -27,6 +30,7 @@
     "use-debounce": "^10.0.0"
   },
   "devDependencies": {
+    "@types/formidable": "^3.4.5",
     "chalk": "4.1.2",
     "dotenv": "^16.3.1",
     "glob": "^10.3.10",

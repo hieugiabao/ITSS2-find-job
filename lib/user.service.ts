@@ -117,4 +117,52 @@ async function getMentorsPaginated(
   return results.length > 0 ? results[0] : null;
 }
 
-export { getMentorsPaginated };
+async function getMentorById(id: string): Promise<IUser | null> {
+  const result = await User.aggregate<IUser>([
+    {
+      $addFields: {
+        fullName: { $concat: ["$firstName", " ", "$lastName"] },
+      },
+    },
+    {
+      $match: {
+        $and: [
+          { $expr: { $eq: ["$_id", { $toObjectId: id }] } },
+          { role: UserRole.MENTOR },
+        ],
+      },
+    },
+    {
+      $lookup: {
+        from: "categories",
+        localField: "category",
+        foreignField: "_id",
+        as: "category",
+      },
+    },
+    {
+      $unwind: "$category",
+    },
+    {
+      $lookup: {
+        from: "addresses",
+        localField: "address",
+        foreignField: "_id",
+        as: "address",
+      },
+    },
+    {
+      $unwind: "$address",
+    },
+    {
+      $project: {
+        password: 0,
+        __v: 0,
+      },
+    },
+  ]);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+export { getMentorsPaginated, getMentorById };

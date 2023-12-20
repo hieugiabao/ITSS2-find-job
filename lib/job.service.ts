@@ -182,4 +182,63 @@ async function getJobById(id: string): Promise<IJob | null> {
   return job.length > 0 ? job[0] : null;
 }
 
-export { getJobById, getJobsPaginated };
+async function getRelatedJobById(
+  id: string,
+  size: number = 2
+): Promise<IJob[]> {
+  const job = await Job.findById(id);
+
+  if (!job) {
+    return [];
+  }
+
+  // get related job by the same company, if not enough, get by the same industry, if not enough, get by the same address
+  const results = await Job.aggregate<IJob>([
+    {
+      $match: {
+        $and: [
+          {
+            $or: [
+              { company: job.company },
+              { industry: job.industry },
+              { address: job.address },
+            ],
+          },
+          { _id: { $ne: job._id } },
+        ],
+      },
+    },
+    {
+      $lookup: {
+        from: "addresses",
+        localField: "address",
+        foreignField: "_id",
+        as: "location",
+      },
+    },
+    { $unwind: "$location" },
+    {
+      $lookup: {
+        from: "categories",
+        localField: "industry",
+        foreignField: "_id",
+        as: "category",
+      },
+    },
+    { $unwind: "$category" },
+    {
+      $lookup: {
+        from: "companies",
+        localField: "company",
+        foreignField: "_id",
+        as: "company",
+      },
+    },
+    { $unwind: "$company" },
+    { $limit: size },
+  ]);
+
+  return results;
+}
+
+export { getJobById, getJobsPaginated, getRelatedJobById };
