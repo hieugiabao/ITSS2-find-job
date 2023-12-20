@@ -14,7 +14,6 @@ export default async function handle(
     case "GET":
       try {
         const result = await getMentorById(req.query.id as string);
-        console.log(result);
         res.status(200).json({
           success: true,
           data: result,

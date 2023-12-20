@@ -1,7 +1,6 @@
 import dbConnect from "@/dbConnect";
-import { NextApiRequest, NextApiResponse } from "next";
-import Job from "../../../models/Job";
 import { getJobsPaginated } from "@/job.service";
+import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handle(
   req: NextApiRequest,
