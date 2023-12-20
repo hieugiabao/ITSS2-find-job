@@ -122,16 +122,18 @@ const Home = ({
           </FormControl>
         </div>
 
-        {isLoading ? (
+        {isLoading && (
           <Box sx={{ display: "flex", justifyContent: "center", mt: 12 }}>
             <CircularProgress />
           </Box>
-        ) : isError ? (
+        )}
+        {isError && (
           <p>
             Có lỗi xảy ra. Vui lòng liên hệ quản trị viên để biết thêm thông tin
             chi tiết
           </p>
-        ) : (
+        )}
+        {!isLoading && !isError && (
           <>
             {/* job */}
             {jobData.length > 0 ? (

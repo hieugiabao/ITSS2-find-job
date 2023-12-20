@@ -17,8 +17,18 @@ import Image from "next/image";
 import Logo from "../../public/images/logo.png";
 import Link from "next/link";
 import { useSearchContext } from "../../context/search-context";
+import { useRouter } from "next/router";
 
-const pages = ["Trang chủ", "Tìm mentor"];
+const pages = [
+  {
+    path: "/",
+    name: "Trang chủ",
+  },
+  {
+    path: "/mentors",
+    name: "Mentors",
+  },
+];
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -56,6 +66,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Header = () => {
+  const router = useRouter();
   const { query, setQuery } = useSearchContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -181,14 +192,18 @@ const Header = () => {
           >
             {pages.map((page) => (
               <Box
-                key={page}
+                key={page.path}
                 sx={{
                   my: 2,
-                  color: page === "Trang chủ" ? "red" : "black",
+                  color: router.pathname === page.path ? "red" : "black",
                   display: "block",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  router.push(page.path);
                 }}
               >
-                {page}
+                {page.name}
               </Box>
             ))}
           </Box>
