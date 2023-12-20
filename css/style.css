@@ -6,3 +6,12 @@
   font-family: "Open Sans", sans-serif;
   box-sizing: border-box;
 }
+
+@layer no-tailwindcss {
+  /* This layer is disabled */
+  @variants {
+    .no-tailwindcss {
+      all: unset;
+    }
+  }
+}

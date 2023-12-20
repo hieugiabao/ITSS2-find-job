@@ -9,7 +9,7 @@ interface MentorItemProps {
 
 const MentorItem = ({ data }: MentorItemProps) => {
   return (
-    <Link href={`/jobs/${data._id}`} className="w-[40%]">
+    <Link href={`/mentors/${data._id}`} className="w-[40%]">
       <Card sx={{ display: "flex" }}>
         <CardMedia
           component="img"

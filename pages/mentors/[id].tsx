@@ -15,18 +15,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { getJobById } from "../../lib/job.service";
 import { GetServerSideProps } from "next";
-import { IJob } from "../../models/Job";
 import { ICompany } from "../../models/Company";
 import Link from "next/link";
 import { green } from "@mui/material/colors";
+import { getMentorById } from "../../lib/user.service";
+import { IUser } from "../../models/User";
+import { IAddress } from "../../models/Address";
 
-interface JobDetailProps {
-  job: IJob;
+interface MentorDetailProps {
+  mentor: IUser;
 }
 
-const JobDetail = ({ job }: JobDetailProps) => {
+const MentorDetail = ({ mentor }: MentorDetailProps) => {
   const [dense, setDense] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [file, setFile] = React.useState("Không");
@@ -82,13 +83,22 @@ const JobDetail = ({ job }: JobDetailProps) => {
             <CardMedia
               component="img"
               sx={{ width: 240, p: 1 }}
-              image={(job.company as ICompany).avatarUrl}
+              image={mentor.avatarUrl}
               alt="Live from space album cover"
             />
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <CardContent sx={{ flex: "1 0 auto" }}>
                 <Typography component="div" variant="h5">
-                  {job.title}
+                  {`${mentor.firstName ?? ""} ${mentor.lastName ?? ""}`}
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  color="text.secondary"
+                  component="div"
+                  className="mt-2"
+                >
+                  <span className="font-bold text-black">Email: </span>{" "}
+                  {mentor.email}
                 </Typography>
                 <Typography
                   variant="subtitle1"
@@ -97,7 +107,7 @@ const JobDetail = ({ job }: JobDetailProps) => {
                   className="mt-2"
                 >
                   <span className="font-bold text-black">Địa chỉ: </span>{" "}
-                  {(job.company as ICompany).address}
+                  {(mentor.address as IAddress).name}
                 </Typography>
                 <Typography
                   variant="subtitle1"
@@ -105,8 +115,8 @@ const JobDetail = ({ job }: JobDetailProps) => {
                   component="div"
                   className="mt-3"
                 >
-                  <span className="font-bold text-black">Mức lương:</span>{" "}
-                  {job.salary / 1e6} triệu
+                  <span className="font-bold text-black">Kinh nghiệm:</span>{" "}
+                  {mentor.experience} năm kinh nghiệm
                 </Typography>
               </CardContent>
             </Box>
@@ -120,7 +130,7 @@ const JobDetail = ({ job }: JobDetailProps) => {
                 variant="contained"
                 onClick={handleClickOpen}
               >
-                Apply ngay
+                Thuê mentor
               </Button>
             </div>
           </Card>
@@ -128,7 +138,7 @@ const JobDetail = ({ job }: JobDetailProps) => {
             {
               <div
                 dangerouslySetInnerHTML={{
-                  __html: String(job.description),
+                  __html: String(mentor.description),
                 }}
                 className="prose prose-lg"
               />
@@ -218,15 +228,24 @@ const JobDetail = ({ job }: JobDetailProps) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title" className="font-bold text-2xl">
-          Ứng tuyển
-          <div className="font-bold text-xl">{job.title}</div>
+          Thuê mentor
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description" className="mb-4">
-            {(job.company as ICompany).companyName}
+            {`${mentor.firstName ?? ""} ${mentor.lastName ?? ""}`}
           </DialogContentText>
 
           <div className="min-w-[496px]">
+            <label htmlFor="nv" className="font-bold">
+              Nguyện vọng
+            </label>
+            <TextField
+              fullWidth
+              id="nv"
+              className="my-2"
+              placeholder="enter your email"
+              sx={{ backgroundColor: "#D9D9D9" }}
+            />
             <label htmlFor="email" className="font-bold">
               Email
             </label>
@@ -280,7 +299,7 @@ const JobDetail = ({ job }: JobDetailProps) => {
               disabled={loading}
               onClick={handleButtonClick}
             >
-              Apply
+              Thuê
             </Button>
             {loading && (
               <CircularProgress
@@ -307,15 +326,15 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     return {
       notFound: true,
     };
-  const job = await getJobById(String(params.id));
-  if (!job)
+  const mentor = await getMentorById(String(params.id));
+  if (!mentor)
     return {
       notFound: true,
     };
 
   return {
-    props: { job: JSON.parse(JSON.stringify(job)) },
+    props: { mentor: JSON.parse(JSON.stringify(mentor)) },
   };
 };
 
-export default JobDetail;
+export default MentorDetail;
