@@ -6,7 +6,15 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {},
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
   important: true,
+  layers: {
+    "no-tailwindcss": {
+      // Add any styles you want to disable here
+      ".no-tailwindcss": {
+        all: "unset",
+      },
+    },
+  },
 };
 export default config;
