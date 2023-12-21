@@ -1,5 +1,4 @@
-import React from "react";
-import Header from "../../components/Header";
+import CheckIcon from "@mui/icons-material/Check";
 import {
   Box,
   Button,
@@ -15,19 +14,21 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { getJobById } from "../../lib/job.service";
-import { GetServerSideProps } from "next";
-import { IJob } from "../../models/Job";
-import { ICompany } from "../../models/Company";
-import Link from "next/link";
 import { green } from "@mui/material/colors";
+import { GetServerSideProps } from "next";
+import Link from "next/link";
+import React from "react";
+import Header from "../../components/Header";
+import { getJobById } from "../../lib/job.service";
+import { ICompany } from "../../models/Company";
+import { IJob } from "../../models/Job";
+import dbConnect from "@/dbConnect";
 
 interface JobDetailProps {
   job: IJob;
 }
 
 const JobDetail = ({ job }: JobDetailProps) => {
-  const [dense, setDense] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [file, setFile] = React.useState("Không");
 
@@ -282,6 +283,19 @@ const JobDetail = ({ job }: JobDetailProps) => {
             >
               Apply
             </Button>
+            {success && (
+              <CheckIcon
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  marginTop: "-12px",
+                  marginLeft: "-12px",
+                  bgcolor: green[500],
+                  borderRadius: "50%",
+                }}
+              />
+            )}
             {loading && (
               <CircularProgress
                 size={24}
@@ -303,6 +317,8 @@ const JobDetail = ({ job }: JobDetailProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  await dbConnect();
+
   if (!params?.id)
     return {
       notFound: true,

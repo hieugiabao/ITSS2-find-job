@@ -1,5 +1,3 @@
-import React from "react";
-import Header from "../../components/Header";
 import {
   Box,
   Button,
@@ -15,20 +13,22 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { GetServerSideProps } from "next";
-import { ICompany } from "../../models/Company";
-import Link from "next/link";
+import CheckIcon from "@mui/icons-material/Check";
 import { green } from "@mui/material/colors";
+import { GetServerSideProps } from "next";
+import Link from "next/link";
+import React from "react";
+import Header from "../../components/Header";
 import { getMentorById } from "../../lib/user.service";
-import { IUser } from "../../models/User";
 import { IAddress } from "../../models/Address";
+import { IUser } from "../../models/User";
+import dbConnect from "@/dbConnect";
 
 interface MentorDetailProps {
   mentor: IUser;
 }
 
 const MentorDetail = ({ mentor }: MentorDetailProps) => {
-  const [dense, setDense] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [file, setFile] = React.useState("Không");
 
@@ -301,6 +301,19 @@ const MentorDetail = ({ mentor }: MentorDetailProps) => {
             >
               Thuê
             </Button>
+            {success && (
+              <CheckIcon
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  marginTop: "-12px",
+                  marginLeft: "-12px",
+                  bgcolor: green[500],
+                  borderRadius: "50%",
+                }}
+              />
+            )}
             {loading && (
               <CircularProgress
                 size={24}
@@ -322,6 +335,7 @@ const MentorDetail = ({ mentor }: MentorDetailProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  await dbConnect();
   if (!params?.id)
     return {
       notFound: true,
