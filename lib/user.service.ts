@@ -155,6 +155,24 @@ async function getMentorById(id: string): Promise<IUser | null> {
       $unwind: "$address",
     },
     {
+      $lookup: {
+        from: "users",
+        localField: "category",
+        foreignField: "category",
+        pipeline: [
+          { $match:
+                  {
+                      $and: [
+                              { $expr : { $ne: [ '$_id' , { $toObjectId: id } ] } },
+                              {role: UserRole.MENTOR }
+                            ]
+                  }   
+           },
+       ],
+        as: "suggestMentors",
+      },
+    },
+    {
       $project: {
         password: 0,
         __v: 0,
