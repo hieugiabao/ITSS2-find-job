@@ -27,6 +27,7 @@ interface Props {
   isLoading: boolean;
   jobPage: number;
   companyPage: number;
+  queryText: string;
 }
 
 const Home = ({
@@ -42,6 +43,7 @@ const Home = ({
   isLoading,
   jobPage,
   companyPage,
+  queryText,
 }: Props) => {
   return (
     <>
@@ -125,6 +127,11 @@ const Home = ({
             </Select>
           </FormControl>
         </div>
+        {queryText && (
+          <div className="text-xl mx-28 my-5">
+            Kết quả tìm kiếm cho: "{queryText}"
+          </div>
+        )}
 
         {isLoading && (
           <Box sx={{ display: "flex", justifyContent: "center", mt: 12 }}>

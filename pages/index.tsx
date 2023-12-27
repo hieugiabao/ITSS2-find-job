@@ -96,6 +96,7 @@ const Index: FC<Props> = ({
       handleChange={handleChange}
       isError={fetchCompanyError || fetchJobError}
       isLoading={fetchCompanyLoading || fetchJobLoading}
+      queryText={queryDebounce}
     />
   );
 };

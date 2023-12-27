@@ -243,7 +243,7 @@ const MentorDetail = ({ mentor }: MentorDetailProps) => {
               fullWidth
               id="nv"
               className="my-2"
-              placeholder="enter your email"
+              placeholder="enter"
               sx={{ backgroundColor: "#D9D9D9" }}
             />
             <label htmlFor="email" className="font-bold">
