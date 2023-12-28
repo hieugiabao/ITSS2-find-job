@@ -1,8 +1,8 @@
 [
   {
     "companyName": "Microsoft",
-    "address": "1 Dai Co Viet",
-    "description": "micro ecosystem",
+    "address": "Cầu Dền, Hai Bà Tưng, Hà Nội",
+    "description": "<h3>M&ocirc; tả c&ocirc;ng việc</h3><p>- Về AI: T&iacute;nh to&aacute;n mức độ ph&ugrave; hợp giữa ứng vi&ecirc;n v&agrave; nh&agrave; tuyển dụng từ đ&oacute; gợi &yacute; việc l&agrave;m ph&ugrave; hợp cho ứng vi&ecirc;n, gợi &yacute; ứng vi&ecirc;n ph&ugrave; hợp cho nh&agrave; tuyển dụng ; xếp hạng ứng vi&ecirc;n cho mỗi tin tuyển dụng;<br />+ Check spam tin r&aacute;c, hệ thống tự động duyệt index, job-posting để chọn lọc tin c&oacute; thật cho người d&ugrave;ng;<br />+ Hệ thống chuyển đổi qua lại giữa văn bản v&agrave; &acirc;m thanh (chuyển văn bản th&agrave;nh giọng n&oacute;i, chuyển giọng n&oacute;i th&agrave;nh văn bản);<br />+ Hệ thống chấm c&ocirc;ng bằng khu&ocirc;n mặt bao gồm nhận diện, chống giả mạo với độ ch&iacute;nh x&aacute;c gần như tuyệt đối;<br />+ Tạo cv bằng AI ở nhiều c&aacute;ch từ file word hoặc file h&igrave;nh ảnh;<br />+ C&aacute;c m&ocirc; h&igrave;nh GAN sinh ảnh , sinh văn bản từ văn bản đầu v&agrave;o, lấy &yacute; tưởng từ chat GPT v&agrave; c&aacute;c m&ocirc; h&igrave;nh ng&ocirc;n ngữ lớn hiện nay;<br />+ X&acirc;y dựng m&ocirc; h&igrave;nh chat AI365 (tương tự Chat GPT).</p><p>- Về NODEJS (ph&aacute;t triển app chat365 v&agrave; timviec365.vn)<br />+ Cắt giao diện, gh&eacute;p api bằng framework nextjs.<br />+ Viết, thiết kế hệ thống api sử dụng: nodejs, mongodb<br />+ Code v&agrave; n&acirc;ng cấp c&aacute;c chức năng tr&ecirc;n web timviec365.vn v&agrave; hungha365.com</p><p>- Về FLUTTER (ph&aacute;t triển app chat365)<br />+ Nghi&ecirc;n cứu, t&igrave;m hiểu định hướng ph&aacute;t triển của c&ocirc;ng ty, c&aacute;c ứng dụng đ&atilde; v&agrave; đang triển khai<br />+ Maintain c&aacute;c dự &aacute;n cũ, cắt giao diện UI, Call Api<br />+ Ph&aacute;t triển c&aacute;c dự &aacute;n di động với Flutter theo tầm nh&igrave;n của C&ocirc;ng ty<br />+ Bảo tr&igrave;, n&acirc;ng cấp phần mềm v&agrave; ph&aacute;t triển th&ecirc;m nhiều dự &aacute;n<br />+ Đ&oacute;ng g&oacute;p &yacute; tưởng, x&acirc;y dựng, thiết kế &yacute; tưởng, kiến tr&uacute;c cho ứng dụng.<br />+ Mức lương hấp dẫn: Từ 8 triệu đồng đến 50 triệu đồng.</p>",
     "avatarUrl": "https://image.bnews.vn/MediaUpload/Org/2019/03/04/151429_01.png",
     "category": 1,
     "location": 1,
@@ -11,7 +11,7 @@
   },
   {
     "companyName": "Google",
-    "address": "1 Dai Co Viet",
+    "address": "Cầu Dền, Hai Bà Tưng, Hà Nội",
     "description": "Chuyên lùa gà, làm việc thì its, chơi là chủ yếu",
     "avatarUrl": "https://image.bnews.vn/MediaUpload/Org/2019/03/04/151429_01.png",
     "category": 2,
@@ -21,7 +21,7 @@
   },
   {
     "companyName": "Facebook",
-    "address": "1 Dai Co Viet",
+    "address": "Cầu Dền, Hai Bà Tưng, Hà Nội",
     "description": "Ha Noi Backend",
     "avatarUrl": "https://image.bnews.vn/MediaUpload/Org/2019/03/04/151429_01.png",
     "category": 1,
@@ -31,8 +31,8 @@
   },
   {
     "companyName": "Apple",
-    "address": "1 Dai Co Viet",
-    "description": "micro ecosystem",
+    "address": "Cầu Dền, Hai Bà Tưng, Hà Nội",
+    "description": "<h3>M&ocirc; tả c&ocirc;ng việc</h3><p>- Về AI: T&iacute;nh to&aacute;n mức độ ph&ugrave; hợp giữa ứng vi&ecirc;n v&agrave; nh&agrave; tuyển dụng từ đ&oacute; gợi &yacute; việc l&agrave;m ph&ugrave; hợp cho ứng vi&ecirc;n, gợi &yacute; ứng vi&ecirc;n ph&ugrave; hợp cho nh&agrave; tuyển dụng ; xếp hạng ứng vi&ecirc;n cho mỗi tin tuyển dụng;<br />+ Check spam tin r&aacute;c, hệ thống tự động duyệt index, job-posting để chọn lọc tin c&oacute; thật cho người d&ugrave;ng;<br />+ Hệ thống chuyển đổi qua lại giữa văn bản v&agrave; &acirc;m thanh (chuyển văn bản th&agrave;nh giọng n&oacute;i, chuyển giọng n&oacute;i th&agrave;nh văn bản);<br />+ Hệ thống chấm c&ocirc;ng bằng khu&ocirc;n mặt bao gồm nhận diện, chống giả mạo với độ ch&iacute;nh x&aacute;c gần như tuyệt đối;<br />+ Tạo cv bằng AI ở nhiều c&aacute;ch từ file word hoặc file h&igrave;nh ảnh;<br />+ C&aacute;c m&ocirc; h&igrave;nh GAN sinh ảnh , sinh văn bản từ văn bản đầu v&agrave;o, lấy &yacute; tưởng từ chat GPT v&agrave; c&aacute;c m&ocirc; h&igrave;nh ng&ocirc;n ngữ lớn hiện nay;<br />+ X&acirc;y dựng m&ocirc; h&igrave;nh chat AI365 (tương tự Chat GPT).</p><p>- Về NODEJS (ph&aacute;t triển app chat365 v&agrave; timviec365.vn)<br />+ Cắt giao diện, gh&eacute;p api bằng framework nextjs.<br />+ Viết, thiết kế hệ thống api sử dụng: nodejs, mongodb<br />+ Code v&agrave; n&acirc;ng cấp c&aacute;c chức năng tr&ecirc;n web timviec365.vn v&agrave; hungha365.com</p><p>- Về FLUTTER (ph&aacute;t triển app chat365)<br />+ Nghi&ecirc;n cứu, t&igrave;m hiểu định hướng ph&aacute;t triển của c&ocirc;ng ty, c&aacute;c ứng dụng đ&atilde; v&agrave; đang triển khai<br />+ Maintain c&aacute;c dự &aacute;n cũ, cắt giao diện UI, Call Api<br />+ Ph&aacute;t triển c&aacute;c dự &aacute;n di động với Flutter theo tầm nh&igrave;n của C&ocirc;ng ty<br />+ Bảo tr&igrave;, n&acirc;ng cấp phần mềm v&agrave; ph&aacute;t triển th&ecirc;m nhiều dự &aacute;n<br />+ Đ&oacute;ng g&oacute;p &yacute; tưởng, x&acirc;y dựng, thiết kế &yacute; tưởng, kiến tr&uacute;c cho ứng dụng.<br />+ Mức lương hấp dẫn: Từ 8 triệu đồng đến 50 triệu đồng.</p>",
     "avatarUrl": "https://image.bnews.vn/MediaUpload/Org/2019/03/04/151429_01.png",
     "category": 2,
     "location": 4,
@@ -41,8 +41,8 @@
   },
   {
     "companyName": "Amazon",
-    "address": "1 Dai Co Viet",
-    "description": "micro ecosystem",
+    "address": "Cầu Dền, Hai Bà Tưng, Hà Nội",
+    "description": "<h3>M&ocirc; tả c&ocirc;ng việc</h3><p>- Về AI: T&iacute;nh to&aacute;n mức độ ph&ugrave; hợp giữa ứng vi&ecirc;n v&agrave; nh&agrave; tuyển dụng từ đ&oacute; gợi &yacute; việc l&agrave;m ph&ugrave; hợp cho ứng vi&ecirc;n, gợi &yacute; ứng vi&ecirc;n ph&ugrave; hợp cho nh&agrave; tuyển dụng ; xếp hạng ứng vi&ecirc;n cho mỗi tin tuyển dụng;<br />+ Check spam tin r&aacute;c, hệ thống tự động duyệt index, job-posting để chọn lọc tin c&oacute; thật cho người d&ugrave;ng;<br />+ Hệ thống chuyển đổi qua lại giữa văn bản v&agrave; &acirc;m thanh (chuyển văn bản th&agrave;nh giọng n&oacute;i, chuyển giọng n&oacute;i th&agrave;nh văn bản);<br />+ Hệ thống chấm c&ocirc;ng bằng khu&ocirc;n mặt bao gồm nhận diện, chống giả mạo với độ ch&iacute;nh x&aacute;c gần như tuyệt đối;<br />+ Tạo cv bằng AI ở nhiều c&aacute;ch từ file word hoặc file h&igrave;nh ảnh;<br />+ C&aacute;c m&ocirc; h&igrave;nh GAN sinh ảnh , sinh văn bản từ văn bản đầu v&agrave;o, lấy &yacute; tưởng từ chat GPT v&agrave; c&aacute;c m&ocirc; h&igrave;nh ng&ocirc;n ngữ lớn hiện nay;<br />+ X&acirc;y dựng m&ocirc; h&igrave;nh chat AI365 (tương tự Chat GPT).</p><p>- Về NODEJS (ph&aacute;t triển app chat365 v&agrave; timviec365.vn)<br />+ Cắt giao diện, gh&eacute;p api bằng framework nextjs.<br />+ Viết, thiết kế hệ thống api sử dụng: nodejs, mongodb<br />+ Code v&agrave; n&acirc;ng cấp c&aacute;c chức năng tr&ecirc;n web timviec365.vn v&agrave; hungha365.com</p><p>- Về FLUTTER (ph&aacute;t triển app chat365)<br />+ Nghi&ecirc;n cứu, t&igrave;m hiểu định hướng ph&aacute;t triển của c&ocirc;ng ty, c&aacute;c ứng dụng đ&atilde; v&agrave; đang triển khai<br />+ Maintain c&aacute;c dự &aacute;n cũ, cắt giao diện UI, Call Api<br />+ Ph&aacute;t triển c&aacute;c dự &aacute;n di động với Flutter theo tầm nh&igrave;n của C&ocirc;ng ty<br />+ Bảo tr&igrave;, n&acirc;ng cấp phần mềm v&agrave; ph&aacute;t triển th&ecirc;m nhiều dự &aacute;n<br />+ Đ&oacute;ng g&oacute;p &yacute; tưởng, x&acirc;y dựng, thiết kế &yacute; tưởng, kiến tr&uacute;c cho ứng dụng.<br />+ Mức lương hấp dẫn: Từ 8 triệu đồng đến 50 triệu đồng.</p>",
     "avatarUrl": "https://image.bnews.vn/MediaUpload/Org/2019/03/04/151429_01.png",
     "category": 5,
     "location": 2,
