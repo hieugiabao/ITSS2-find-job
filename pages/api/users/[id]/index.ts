@@ -25,8 +25,11 @@ export default async function handle(
       break;
     case "POST":
     case "PUT":
+     
         try{
-            const {   id, name: username, addr: address, des: description   } = req.query;
+             const {id} = req.query;
+            const {  name: username, addr: address, des: description   } = JSON.parse(req.body);
+            console.log("body",username,address,description)
             const result = await updateUser(
                 {
                     username: username as string,

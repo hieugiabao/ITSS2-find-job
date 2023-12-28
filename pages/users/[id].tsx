@@ -30,6 +30,7 @@ import { IAddress } from "../../models/Address";
 import { IUser } from "../../models/User";
 import dbConnect from "@/dbConnect";
 import CreateIcon from '@mui/icons-material/Create';
+import { useRouter } from "next/navigation";
 interface UserDetailProps {
   user: IUser;
 }
@@ -39,15 +40,14 @@ const UserDetail = ({ user }: UserDetailProps) => {
   const [like, setLike] = React.useState(true);
   const [comment, setComment] = React.useState(false);
   const [file, setFile] = React.useState("Không");
+  const [address, setAddr] = React.useState(user?.address?._id)
+  const [description, setDes] = React.useState(user?.description)
+  const [username, setName] = React.useState(user?.username)
+  const [id,setID] = React.useState(String(user?._id))
   const [formUpdate, setFormUpdate] =  React.useState(false);
-  let para = {
-    name: user?.username,
-    des: user?.description,
-    addr: user?.address,
-    id: user?.id
+  const router = useRouter();
 
-  };
-
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -70,6 +70,16 @@ const UserDetail = ({ user }: UserDetailProps) => {
     setLike(false);
     setComment(true);
   };
+  const handleAddress = (e) => {
+    setAddr(e.target.value);
+  };
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+  const handleDescription = () =>
+  {
+    setDes(e.target.value);
+  }
 
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -105,11 +115,30 @@ const UserDetail = ({ user }: UserDetailProps) => {
     }
   };
   const handleUpdate=async () => {
-    // await fetch('/api/users/65787da5577f298355d4add4', {
-    //   method: 'POST',
-    //   body: para,
-    // })
+    const data = {
+      name : username,
+      des: description,
+      addr: address
+    };
+     const response = await fetch(`/api/users/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      
+     })
+     
+
+    //  const result = await updateUser(
+    //   {
+    //     username: username as string,
+    //     description: description as string,
+    //     address: Number(address)
+    //   },
+    //   String(id)
+
+    // )
     setFormUpdate(false);
+    //this will reload the page without doing SSR
+    router.refresh();
   }
    
   
@@ -367,21 +396,19 @@ const UserDetail = ({ user }: UserDetailProps) => {
             <TextField
               fullWidth
               id="name"
-              value={user?.username}
+              value={username}
               className="mt-2"
               placeholder="enter your username"
               sx={{ backgroundColor: "#D9D9D9" }}
+              onChange={handleName}
             />
              <label htmlFor="name" className="font-bold my-2 block">
              Nơi ở
             </label>
             <FormControl  fullWidth sx={{backgroundColor: "#D9D9D9"}}>
             <Select 
-              
-              onChange={(e) => {
-             //   para.addr = e.target.value
-                console.log("addr",  para.addr )
-              }}
+              value={address}
+              onChange={handleAddress}
               // displayEmpty
               // inputProps={{ "aria-label": "Without label" }}
             >
@@ -398,16 +425,14 @@ const UserDetail = ({ user }: UserDetailProps) => {
               Mô tả
             </label>
             <TextField multiline
-            rows={6}
+             rows={6}
             maxRows={6}
              fullWidth
              id="des"
+             value={description}
+             onChange={handleDescription}
              className="mt-2 "
              sx={{ backgroundColor: "#D9D9D9" }}
-             onChange={(e) => {
-              para.des = e.target.value
-              console.log("addr",  para.des )
-            }}
             />
              </div>
        
