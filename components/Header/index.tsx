@@ -26,7 +26,7 @@ const pages = [
   },
   {
     path: "/mentors",
-    name: "Mentors",
+    name: "Tìm mentor",
   },
 ];
 
