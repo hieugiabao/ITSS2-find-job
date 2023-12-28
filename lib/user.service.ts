@@ -7,7 +7,11 @@ type MentorFilter = {
   industry?: string;
   experience?: string;
 };
-
+type UserType = {
+  username?: string;
+  address?: number;
+  description?: string;
+}
 async function getMentorsPaginated(
   pageOption: PageOption,
   filter: MentorFilter = {}
@@ -182,5 +186,57 @@ async function getMentorById(id: string): Promise<IUser | null> {
 
   return result.length > 0 ? result[0] : null;
 }
+async function getUserById(id: string): Promise<IUser | null> {
+  const result = await User.aggregate<IUser>([
+    {
+      $addFields: {
+        fullName: { $concat: ["$firstName", " ", "$lastName"] },
+      },
+    },
+    {
+      $match: {
+         $expr: { $eq: ["$_id", { $toObjectId: id }] } 
+      },
+    },
+    {
+      $lookup: {
+        from: "addresses",
+        localField: "address",
+        foreignField: "_id",
+        as: "address",
+      },
+    },
+    {
+      $unwind: "$address",
+    },
+    {
+      $project: {
+        password: 0,
+        __v: 0,
+      },
+    },
+  ]);
 
-export { getMentorsPaginated, getMentorById };
+  return result.length > 0 ? result[0] : null;
+}
+async function updateUser(userInfo: UserType = {}, id: string): Promise<IUser | null> {
+  const{username, description, address} = userInfo;
+  console.log("des:",description)
+  await User.updateOne(
+    { "_id": id  },
+    {
+      $set: {
+      username: username,
+      description: description,
+      address: address
+       },
+    
+    },
+    { upsert: true }
+  )
+  const result = await getUserById(id);
+  return result? result : null ;
+
+}
+
+export { getMentorsPaginated, getMentorById,getUserById,updateUser}
