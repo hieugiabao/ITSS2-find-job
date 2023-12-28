@@ -40,7 +40,7 @@ const UserDetail = ({ user }: UserDetailProps) => {
   const [like, setLike] = React.useState(true);
   const [comment, setComment] = React.useState(false);
   const [file, setFile] = React.useState("Không");
-  const [address, setAddr] = React.useState(user?.address?._id)
+  const [address, setAddr] = React.useState((user?.address as IAddress)?._id)
   const [description, setDes] = React.useState(user?.description)
   const [username, setName] = React.useState(user?.username)
   const [id,setID] = React.useState(String(user?._id))
@@ -70,13 +70,13 @@ const UserDetail = ({ user }: UserDetailProps) => {
     setLike(false);
     setComment(true);
   };
-  const handleAddress = (e) => {
+  const handleAddress = (e: any) => {
     setAddr(e.target.value);
   };
-  const handleName = (e) => {
+  const handleName = (e: any) => {
     setName(e.target.value);
   };
-  const handleDescription = () =>
+  const handleDescription = (e: any) =>
   {
     setDes(e.target.value);
   }
