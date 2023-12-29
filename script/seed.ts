@@ -41,7 +41,7 @@ async function main() {
         const collectionName = file.split("\\")[1].split(".")[0];
         const collection = (await import(`../models/${collectionName}`))
           .default;
-
+        await collection.createCollection();
         await collection.deleteMany({}, { session });
 
         const result = await collection.insertMany(data, { session });
