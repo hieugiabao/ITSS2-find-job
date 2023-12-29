@@ -25,13 +25,11 @@ async function main() {
     const connection = await dbConnect();
     spinner.succeed("Connected to database");
 
-    const session = await connection.startSession();
-    session.startTransaction();
-    try {
-      spinner.start("Loading data files...");
-      const dataFiles = glob.sync("data/*.json");
-      spinner.succeed(`Loaded ${dataFiles.length} data files`);
+    spinner.start("Loading data files...");
+    const dataFiles = glob.sync("data/*.json");
+    spinner.succeed(`Loaded ${dataFiles.length} data files`);
 
+    try {
       for (const file of dataFiles) {
         spinner.start(`Seeding ${file}...`);
         const data = JSON.parse(
@@ -41,10 +39,9 @@ async function main() {
         const collectionName = file.split("\\")[1].split(".")[0];
         const collection = (await import(`../models/${collectionName}`))
           .default;
-        await collection.createCollection();
-        await collection.deleteMany({}, { session });
+        await collection.deleteMany({});
 
-        const result = await collection.insertMany(data, { session });
+        const result = await collection.insertMany(data);
 
         // write result back to file to update ids
         fs.writeFileSync(
@@ -55,16 +52,10 @@ async function main() {
         spinner.succeed(`Seeded ${file}`);
       }
 
-      spinner.start("Committing transaction...");
-      await session.commitTransaction();
-      spinner.succeed("Transaction committed");
-
       log("👍 ", chalk.gray.underline(`Finished Seeding`));
     } catch (e: any) {
-      await session.abortTransaction();
       panic(spinner, e, "Failed to seed database");
     } finally {
-      await session.endSession();
       await connection.connection.close();
     }
   } catch (error: any) {
