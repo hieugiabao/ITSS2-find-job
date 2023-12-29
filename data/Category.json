@@ -21,12 +21,32 @@
   },
   {
     "_id": 5,
-    "name": "Luật - nhân văn",
+    "name": "Luật - Nhân văn",
     "__v": 0
   },
   {
     "_id": 6,
-    "name": "Nghệ thuật - thẩm mỹ - đồ họa",
+    "name": "Nghệ thuật - Thẩm mỹ - Đồ họa",
+    "__v": 0
+  },
+  {
+    "_id": 7,
+    "name": "Báo chí - Khoa học và xã hội",
+    "__v": 0
+  },
+  {
+    "_id": 8,
+    "name": "Khoa học cơ bản",
+    "__v": 0
+  },
+  {
+    "_id": 9,
+    "name": "Sư phạm",
+    "__v": 0
+  },
+  {
+    "_id": 10,
+    "name": "Nông - Lâm - Ngư nghiệp",
     "__v": 0
   }
 ]

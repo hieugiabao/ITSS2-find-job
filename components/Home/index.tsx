@@ -13,7 +13,7 @@ import { SearchData } from "../../pages";
 import CompanyItem from "../CompanyItem";
 import Header from "../Header";
 import JobItem from "../JobItem";
-
+import categorydata from "../../data/Category.json";
 interface Props {
   jobData: IJob[];
   setPage: Dispatch<SetStateAction<number>>;
@@ -118,12 +118,9 @@ const Home = ({
               inputProps={{ "aria-label": "Without label" }}
             >
               <MenuItem value="">Tất cả ngành nghề</MenuItem>
-              <MenuItem value={"1"}>Sản xuất và chế biến</MenuItem>
-              <MenuItem value={"2"}>Kiến trúc và xây dựng</MenuItem>
-              <MenuItem value={"3"}>Kinh doanh</MenuItem>
-              <MenuItem value={"4"}>Công nghệ - thông tin</MenuItem>
-              <MenuItem value={"5"}>Luật - nhân văn</MenuItem>
-              <MenuItem value={"6"}>Nghệ thuật - thẩm mỹ - đồ họa</MenuItem>
+              {categorydata.map((e) => {
+                return <MenuItem value={e._id.toString()}>{e.name}</MenuItem>;
+              })}
             </Select>
           </FormControl>
         </div>
