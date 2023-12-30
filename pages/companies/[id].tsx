@@ -37,6 +37,7 @@ import { IComment } from "../../models/Comment";
 import { ICompany } from "../../models/Company";
 import { IJob } from "../../models/Job";
 import Header from "../../components/Header";
+import { defaultUser, useUserContext } from "../../context/user-context";
 
 interface CompanyDetailProps {
   company: ICompany;
@@ -45,25 +46,6 @@ interface CompanyDetailProps {
   jobs: IJob[];
   isLike: boolean;
 }
-
-const user = {
-  username: "admin",
-  avatarUrl:
-    "https://musicart.xboxlive.com/7/4d4d6500-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080",
-  email: "thanhduong@mail.com",
-  password: "$2a$12$Bo4xGIwqDh4lLWnEPSPBieQsXh3LF1AqK5WufrzdRLNcMqO3v6G1O",
-  firstName: "Thanh",
-  lastName: "Duong",
-  address: 1,
-  category: 2,
-  description:
-    "<h2>CẤP BẬC:</h2><ul><li>Senior Dev</li></ul><h2>M&Ocirc; TẢ:</h2><ul><li>2020-2022: Hacker l&agrave;m việc cho FBI</li><li>2022-2023: Ph&aacute;t triển AI Skynet</li></ul>",
-  level: "middle",
-  experience: 3,
-  role: 3,
-  _id: "65787da4577f298355d4adce",
-  __v: 0,
-};
 
 const COMMENT_ITEMS = 2;
 const JOB_ITEMS = 4;
@@ -96,6 +78,8 @@ const CompanyDetail = ({
   });
   const [userLiked, setUserLiked] = React.useState(isLike);
 
+  const { user } = useUserContext();
+
   React.useEffect(() => {
     return () => {
       clearTimeout(timer.current);
@@ -112,7 +96,7 @@ const CompanyDetail = ({
           status: "cho duyet",
           company: company._id,
           anonymous,
-          user,
+          user: user?._id,
         });
         if (res.data.success) {
           const newComment = res.data.data as IComment;
@@ -155,7 +139,7 @@ const CompanyDetail = ({
     setLikeCount(newLikeCount);
     setUserLiked(!userLiked);
     await axios.post(`/api/companies/${company._id}/like`, {
-      user: user._id,
+      user: user?._id,
       company: company._id,
     });
   };
@@ -287,11 +271,14 @@ const CompanyDetail = ({
               {commentData.map((comment: any) => (
                 <div key={comment._id}>
                   <div className="flex gap-7 px-4 pt-9 pb-5">
-                    <Avatar
-                      alt="Avatar"
-                      src={comment?.user?.avatarUrl}
-                      sx={{ width: 90, height: 90 }}
-                    />
+                    {comment.anonymous ? (
+                      <Avatar
+                        sx={{ width: 56, height: 56 }}
+                        src={comment?.user?.avatarUrl ?? ""}
+                      />
+                    ) : (
+                      <Avatar sx={{ width: 56, height: 56 }} />
+                    )}
                     <div>
                       {comment.anonymous ? (
                         <div className="text-base font-bold">
@@ -466,7 +453,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     getDetailCompany(String(params.id)),
     getCommnent(String(params.id)),
     getJobsPaginated({ page: 1, size: 4 }, { company: String(params.id) }),
-    checkIsLike(String(params.id), user._id),
+    checkIsLike(String(params.id), defaultUser._id),
   ]);
 
   if (!company)

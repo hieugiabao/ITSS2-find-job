@@ -1,10 +1,8 @@
 import Company, { ICompany } from "../models/Company";
 import Comment, { IComment } from "../models/Comment";
 import { PageOption, PageResult } from "./../types/index";
-import { comment } from "postcss";
 import Like, { ILike } from "../models/Like";
 import "../models/User";
-import { json } from "stream/consumers";
 
 type Filter = {
   query?: string;

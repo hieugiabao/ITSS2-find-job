@@ -18,6 +18,7 @@ import Logo from "../../public/images/logo.png";
 import Link from "next/link";
 import { useSearchContext } from "../../context/search-context";
 import { useRouter } from "next/router";
+import { useUserContext } from "../../context/user-context";
 
 const pages = [
   {
@@ -72,6 +73,8 @@ const Header = () => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
 
+  const { user } = useUserContext();
+
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -109,7 +112,9 @@ const Header = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={() => router.push(`/users/${user?._id}`)}>
+        Profile
+      </MenuItem>
       <MenuItem onClick={handleMenuClose}>Đăng xuất</MenuItem>
     </Menu>
   );
@@ -224,7 +229,7 @@ const Header = () => {
                 }}
               />
             </Search>
-            <div className="flex justify-center cursor-pointer items-center">
+            <div className="flex justify-center cursor-pointer items-center w-auto">
               <IconButton
                 size="large"
                 edge="end"
@@ -237,8 +242,8 @@ const Header = () => {
               >
                 <AccountCircle className="h-8 w-8" />
               </IconButton>
-              <div className="block ml-3 py-3 hover:text-red-800 transition-all text-xl">
-                Thanhduong
+              <div className="ml-3 py-3 hover:text-red-800 transition-all text-xl truncate">
+                {`${user?.firstName}`} {`${user?.lastName}`}
               </div>
             </div>
           </Box>
