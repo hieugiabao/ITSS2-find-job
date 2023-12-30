@@ -9,13 +9,12 @@ export default async function handle(
   await dbConnect();
 
   const { method } = req;
-  const { id, size } = req.query;
+  const { id } = req.query;
 
   switch (method) {
     case "GET":
       try {
-        const sizeNumber = parseInt((size as string) ?? "2");
-        const relatedJobs = await getRelatedJobById(id as string, sizeNumber);
+        const relatedJobs = await getRelatedJobById(id as string);
 
         res.status(200).json({ success: true, data: relatedJobs });
       } catch (error) {

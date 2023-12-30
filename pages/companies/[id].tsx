@@ -460,15 +460,14 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     return {
       notFound: true,
     };
-  const companyId = String(params.id);
-  const totalLike = await getTotalLike(companyId);
-  const company = await getDetailCompany(companyId);
-  const comments = await getCommnent(companyId);
-  const jobs = await getJobsPaginated(
-    { page: 1, size: 4 },
-    { company: companyId }
-  );
-  const isLike = await checkIsLike(companyId, user._id);
+
+  const [totalLike, company, comments, jobs, isLike] = await Promise.all([
+    getTotalLike(String(params.id)),
+    getDetailCompany(String(params.id)),
+    getCommnent(String(params.id)),
+    getJobsPaginated({ page: 1, size: 4 }, { company: String(params.id) }),
+    checkIsLike(String(params.id), user._id),
+  ]);
 
   if (!company)
     return {

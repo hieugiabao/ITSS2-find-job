@@ -1,3 +1,4 @@
+import dbConnect from "@/dbConnect";
 import CheckIcon from "@mui/icons-material/Check";
 import {
   Box,
@@ -19,35 +20,41 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 import React from "react";
 import Header from "../../components/Header";
-import { getJobById } from "../../lib/job.service";
+import { getJobById, getRelatedJobById } from "../../lib/job.service";
 import { ICompany } from "../../models/Company";
 import { IJob } from "../../models/Job";
-import dbConnect from "@/dbConnect";
+import { useRouter } from "next/router";
+
+const RELATED_JOB_ITEMS = 2;
 
 interface JobDetailProps {
   job: IJob;
+  relatedJobs: IJob[];
 }
 
-const JobDetail = ({ job }: JobDetailProps) => {
+const JobDetail = ({ job, relatedJobs }: JobDetailProps) => {
+  const router = useRouter();
+  const id = router.query.id;
   const [open, setOpen] = React.useState(false);
   const [file, setFile] = React.useState("");
+  const [relatedJobsData, setRelatedJobsData] = React.useState<IJob[]>(
+    relatedJobs.slice(0, RELATED_JOB_ITEMS)
+  );
   const company = job.company as ICompany;
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const timer = React.useRef<number>();
 
   React.useEffect(() => {
+    setRelatedJobsData(relatedJobs.slice(0, RELATED_JOB_ITEMS));
+  }, [id]);
+
+  React.useEffect(() => {
     return () => {
-      clearTimeout(timer.current);
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
     };
   }, []);
 
@@ -63,6 +70,22 @@ const JobDetail = ({ job }: JobDetailProps) => {
         setOpen(false);
         setSuccess(false);
       }, 3000);
+    }
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleLoadMoreRelatedJobs = () => {
+    if (relatedJobsData.length < relatedJobs.length) {
+      setRelatedJobsData(
+        relatedJobs.slice(0, relatedJobsData.length + RELATED_JOB_ITEMS)
+      );
     }
   };
 
@@ -158,83 +181,77 @@ const JobDetail = ({ job }: JobDetailProps) => {
         <div className="flex-1">
           <div className="bg-white p-5 font-bold rounded">
             Việc làm đang tuyển dụng{" "}
-            <Link href="/" className="text-[#9A36FF] ml-4 cursor-pointer">
-              Xem thêm
-            </Link>
+            {relatedJobsData.length !== relatedJobs.length && (
+              <span
+                className="text-[#9A36FF] ml-4 cursor-pointer"
+                onClick={handleLoadMoreRelatedJobs}
+              >
+                Xem thêm
+              </span>
+            )}
           </div>
-          <Card
-            sx={{ display: "flex", alignItems: "center", paddingLeft: "10px" }}
-            className="w-full mt-2"
-          >
-            <CardMedia
-              component="img"
-              sx={{ width: 100, height: 100, p: 1 }}
-              image="https://image.bnews.vn/MediaUpload/Org/2019/03/04/151429_01.png"
-              alt="Live from space album cover"
-            />
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <CardContent sx={{ flex: "1 0 auto" }}>
-                <Typography
-                  component="div"
-                  variant="h6"
-                  className="text-base font-bold"
-                >
-                  Tuyển frontend dev
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  component="div"
-                >
-                  Công ty cổ phần abc
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  component="div"
-                >
-                  10-15 triệu <span className="ml-4">Hà Nội</span>
-                </Typography>
-              </CardContent>
-            </Box>
-          </Card>
-
-          <Card
-            sx={{ display: "flex", alignItems: "center", paddingLeft: "10px" }}
-            className="w-full mt-2"
-          >
-            <CardMedia
-              component="img"
-              sx={{ width: 100, height: 100, p: 1 }}
-              image="https://image.bnews.vn/MediaUpload/Org/2019/03/04/151429_01.png"
-              alt="Live from space album cover"
-            />
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <CardContent sx={{ flex: "1 0 auto" }}>
-                <Typography
-                  component="div"
-                  variant="h6"
-                  className="text-base font-bold"
-                >
-                  Tuyển frontend dev
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  component="div"
-                >
-                  Công ty cổ phần abc
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  component="div"
-                >
-                  10-15 triệu <span className="ml-4">Hà Nội</span>
-                </Typography>
-              </CardContent>
-            </Box>
-          </Card>
+          {relatedJobsData.length > 0 ? (
+            <>
+              {relatedJobsData.map((job) => (
+                <Link href={`/jobs/${job._id}`} key={job._id}>
+                  <Card
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      paddingLeft: "10px",
+                    }}
+                    className="w-full mt-2"
+                  >
+                    <CardMedia
+                      component="img"
+                      sx={{ width: 100, height: 100, p: 1 }}
+                      image="https://image.bnews.vn/MediaUpload/Org/2019/03/04/151429_01.png"
+                      alt="Live from space album cover"
+                    />
+                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                      <CardContent sx={{ flex: "1 0 auto" }}>
+                        <Typography
+                          component="div"
+                          variant="h6"
+                          className="text-base font-bold"
+                        >
+                          {job.title}
+                        </Typography>
+                        <Typography
+                          variant="subtitle1"
+                          color="text.secondary"
+                          component="div"
+                        >
+                          {(job.company as ICompany).companyName}{" "}
+                        </Typography>
+                        <div className="flex justify-between pr-6 w-3/4">
+                          <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                            component="div"
+                          >
+                            {job.salary / 1e6} triệu
+                          </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                            component="span"
+                            className="truncate w-2/3 text-right"
+                          >
+                            {(job.company as ICompany).address}
+                          </Typography>
+                        </div>
+                      </CardContent>
+                    </Box>
+                  </Card>
+                </Link>
+              ))}
+            </>
+          ) : (
+            <div className="bg-white p-5 rounded">
+              Không có việc làm nào liên quan
+            </div>
+          )}
         </div>
       </div>
       <Dialog
@@ -350,14 +367,21 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     return {
       notFound: true,
     };
-  const job = await getJobById(String(params.id));
+  const [job, relatedJobs] = await Promise.all([
+    getJobById(String(params.id)),
+    getRelatedJobById(String(params.id)),
+  ]);
+
   if (!job)
     return {
       notFound: true,
     };
 
   return {
-    props: { job: JSON.parse(JSON.stringify(job)) },
+    props: {
+      job: JSON.parse(JSON.stringify(job)),
+      relatedJobs: JSON.parse(JSON.stringify(relatedJobs)),
+    },
   };
 };
 

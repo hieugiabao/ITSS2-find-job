@@ -182,30 +182,18 @@ async function getJobById(id: string): Promise<IJob | null> {
   return job.length > 0 ? job[0] : null;
 }
 
-async function getRelatedJobById(
-  id: string,
-  size: number = 2
-): Promise<IJob[]> {
+async function getRelatedJobById(id: string): Promise<IJob[]> {
   const job = await Job.findById(id);
 
   if (!job) {
     return [];
   }
 
-  // get related job by the same company, if not enough, get by the same industry, if not enough, get by the same address
+  // get related job by the same category
   const results = await Job.aggregate<IJob>([
     {
       $match: {
-        $and: [
-          {
-            $or: [
-              { company: job.company },
-              { industry: job.industry },
-              { address: job.address },
-            ],
-          },
-          { _id: { $ne: job._id } },
-        ],
+        $and: [{ industry: job.industry }, { _id: { $ne: job._id } }],
       },
     },
     {
@@ -222,10 +210,10 @@ async function getRelatedJobById(
         from: "categories",
         localField: "industry",
         foreignField: "_id",
-        as: "category",
+        as: "industry",
       },
     },
-    { $unwind: "$category" },
+    { $unwind: "$industry" },
     {
       $lookup: {
         from: "companies",
@@ -235,7 +223,6 @@ async function getRelatedJobById(
       },
     },
     { $unwind: "$company" },
-    { $limit: size },
   ]);
 
   return results;
