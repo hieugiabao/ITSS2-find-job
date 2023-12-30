@@ -14,6 +14,7 @@ import CompanyItem from "../CompanyItem";
 import Header from "../Header";
 import JobItem from "../JobItem";
 import categorydata from "../../data/Category.json";
+import Footer from "../Footer";
 interface Props {
   jobData: IJob[];
   setPage: Dispatch<SetStateAction<number>>;
@@ -203,6 +204,7 @@ const Home = ({
           </>
         )}
       </main>
+      <Footer />
     </>
   );
 };
