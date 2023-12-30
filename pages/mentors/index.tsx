@@ -70,7 +70,7 @@ const Index: FC<Props> = ({ mentors: initialMentors }) => {
   return (
     <>
       <Header />
-      <main className="bg-gray-100 pt-[8rem] min-h-screen">
+      <main className="bg-gray-100 pt-[8rem] min-h-screen pb-10">
         <div className="flex mx-28 gap-4 my-3">
           <div className="my-5 text-xl font-extrabold ">Danh sách mentor</div>
           <FormControl sx={{ m: 1, minWidth: 200, backgroundColor: "#fff" }}>

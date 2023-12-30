@@ -7,14 +7,13 @@ import {
   Select,
 } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
+import categorydata from "../../data/Category.json";
 import { ICompany } from "../../models/Company";
 import { IJob } from "../../models/Job";
 import { SearchData } from "../../pages";
 import CompanyItem from "../CompanyItem";
 import Header from "../Header";
 import JobItem from "../JobItem";
-import categorydata from "../../data/Category.json";
-import Footer from "../Footer";
 interface Props {
   jobData: IJob[];
   setPage: Dispatch<SetStateAction<number>>;
@@ -49,7 +48,7 @@ const Home = ({
   return (
     <>
       <Header />
-      <main className="bg-gray-100 pt-[8rem] min-h-screen">
+      <main className="bg-gray-100 pt-[8rem] pb-10">
         <div className="flex mx-28 gap-4 my-3">
           <div className="my-5 text-xl font-extrabold ">Việc làm mới nhất</div>
           <FormControl sx={{ m: 1, minWidth: 200, backgroundColor: "#fff" }}>
@@ -184,7 +183,7 @@ const Home = ({
                     <CompanyItem data={company} key={company._id} />
                   ))}
                 </div>
-                <div className="mt-10 pb-80 w-full flex justify-center">
+                <div className="mt-10 w-full flex justify-center">
                   <Pagination
                     count={totalCompanyPages}
                     variant="text"
@@ -204,7 +203,6 @@ const Home = ({
           </>
         )}
       </main>
-      <Footer />
     </>
   );
 };

@@ -30,7 +30,7 @@ interface MentorDetailProps {
 
 const MentorDetail = ({ mentor }: MentorDetailProps) => {
   const [open, setOpen] = React.useState(false);
-  const [file, setFile] = React.useState("Không");
+  const [file, setFile] = React.useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -267,13 +267,15 @@ const MentorDetail = ({ mentor }: MentorDetailProps) => {
                 type="file"
                 hidden
                 onChange={(e) => {
-                  setFile(e.target.files?.[0].name || "Không");
+                  setFile(e.target.files?.[0].name || "");
                 }}
               />
               <div className="flex gap-8">
-                <span className="font-bold cursor-pointer p-2 bg-[#D9D9D9] block w-[80px] rounded">
-                  {file.length > 6 ? `${file.substring(0, 6)}...` : file}
-                </span>
+                {file !== "" && (
+                  <span className="font-bold cursor-pointer p-2 bg-[#D9D9D9] block w-[80px] rounded">
+                    {file.length > 6 ? `${file.substring(0, 6)}...` : file}
+                  </span>
+                )}
                 <label
                   htmlFor="cv"
                   className="font-bold cursor-pointer p-2 bg-[#D9D9D9] block w-[72px] rounded"

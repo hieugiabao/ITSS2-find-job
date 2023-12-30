@@ -30,7 +30,8 @@ interface JobDetailProps {
 
 const JobDetail = ({ job }: JobDetailProps) => {
   const [open, setOpen] = React.useState(false);
-  const [file, setFile] = React.useState("Không");
+  const [file, setFile] = React.useState("");
+  const company = job.company as ICompany;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,15 +44,6 @@ const JobDetail = ({ job }: JobDetailProps) => {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const timer = React.useRef<number>();
-
-  const buttonSx = {
-    ...(success && {
-      bgcolor: green[500],
-      "&:hover": {
-        bgcolor: green[700],
-      },
-    }),
-  };
 
   React.useEffect(() => {
     return () => {
@@ -83,7 +75,7 @@ const JobDetail = ({ job }: JobDetailProps) => {
             <CardMedia
               component="img"
               sx={{ width: 240, p: 1 }}
-              image={(job.company as ICompany).avatarUrl}
+              image={company.avatarUrl}
               alt="Live from space album cover"
             />
             <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -98,7 +90,7 @@ const JobDetail = ({ job }: JobDetailProps) => {
                   className="mt-2"
                 >
                   <span className="font-bold text-black">Địa chỉ: </span>{" "}
-                  {(job.company as ICompany).address}
+                  {company.address}
                 </Typography>
                 <Typography
                   variant="subtitle1"
@@ -109,6 +101,33 @@ const JobDetail = ({ job }: JobDetailProps) => {
                   <span className="font-bold text-black">Mức lương:</span>{" "}
                   {job.salary / 1e6} triệu
                 </Typography>
+                <Link href={`/companies/${company._id}`}>
+                  <Typography
+                    variant="subtitle1"
+                    component="div"
+                    className="mt-3"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      className="inline-block mr-2"
+                    >
+                      <path
+                        d="M11.5 8.5L19 1M19 1H14M19 1V6M19 12V17C19 17.5304 18.7893 18.0391 18.4142 18.4142C18.0391 18.7893 17.5304 19 17 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V3C1 2.46957 1.21071 1.96086 1.58579 1.58579C1.96086 1.21071 2.46957 1 3 1H8"
+                        stroke="#00CEFC"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span className="text-[#00CEFC] text-xl italic">
+                      {company.companyName}
+                    </span>
+                  </Typography>
+                </Link>
               </CardContent>
             </Box>
             <div className="flex-1 text-right">
@@ -230,7 +249,7 @@ const JobDetail = ({ job }: JobDetailProps) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description" className="mb-4">
-            {(job.company as ICompany).companyName}
+            {company.companyName}
           </DialogContentText>
 
           <div className="min-w-[496px]">
@@ -255,13 +274,15 @@ const JobDetail = ({ job }: JobDetailProps) => {
                 type="file"
                 hidden
                 onChange={(e) => {
-                  setFile(e.target.files?.[0].name || "Không");
+                  setFile(e.target.files?.[0]?.name || "");
                 }}
               />
               <div className="flex gap-8">
-                <span className="font-bold cursor-pointer p-2 bg-[#D9D9D9] block w-[80px] rounded">
-                  {file.length > 6 ? `${file.substring(0, 6)}...` : file}
-                </span>
+                {file !== "" && (
+                  <span className="font-bold cursor-pointer p-2 bg-[#D9D9D9] block w-[80px] rounded">
+                    {file.length > 6 ? `${file.substring(0, 6)}...` : file}
+                  </span>
+                )}
                 <label
                   htmlFor="cv"
                   className="font-bold cursor-pointer p-2 bg-[#D9D9D9] block w-[72px] rounded"

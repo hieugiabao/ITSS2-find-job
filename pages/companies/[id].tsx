@@ -1,4 +1,7 @@
+import dbConnect from "@/dbConnect";
 import CheckIcon from "@mui/icons-material/Check";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import {
   Avatar,
   Box,
@@ -19,33 +22,27 @@ import {
   Typography,
 } from "@mui/material";
 import { green } from "@mui/material/colors";
+import axios from "axios";
 import { GetServerSideProps } from "next";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
-import Header from "../../components/Header";
-import { ICompany } from "../../models/Company";
-import dbConnect from "@/dbConnect";
 import {
   checkIsLike,
   getCommnent,
   getDetailCompany,
   getTotalLike,
 } from "../../lib/company.service";
-import FmdGoodIcon from "@mui/icons-material/FmdGood";
-import { ILike } from "../../models/Like";
-import { IComment } from "../../models/Comment";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { getJobsPaginated } from "../../lib/job.service";
-import { PageResult } from "../../types";
+import { IComment } from "../../models/Comment";
+import { ICompany } from "../../models/Company";
 import { IJob } from "../../models/Job";
-import { useRouter } from "next/navigation";
-import axios from "axios";
+import Header from "../../components/Header";
 
 interface CompanyDetailProps {
   company: ICompany;
   totalLike: any;
   comments: IComment[];
-  jobs: PageResult<IJob> | null;
+  jobs: IJob[];
   isLike: boolean;
 }
 
@@ -68,6 +65,9 @@ const user = {
   __v: 0,
 };
 
+const COMMENT_ITEMS = 2;
+const JOB_ITEMS = 4;
+
 const CompanyDetail = ({
   company,
   totalLike,
@@ -77,14 +77,7 @@ const CompanyDetail = ({
 }: CompanyDetailProps) => {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const [jobData, setJobData] = React.useState(jobs.slice(0, JOB_ITEMS));
 
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -93,22 +86,15 @@ const CompanyDetail = ({
     totalLike?.totalLike ?? 0
   );
   const commentCount = comments.length;
-  const [commentData, setCommentData] = React.useState(comments.slice(0, 2));
+  const [commentData, setCommentData] = React.useState(
+    comments.slice(0, COMMENT_ITEMS)
+  );
   const timer = React.useRef<number>();
   const [feedBack, setFeedBack] = React.useState({
     comment: "",
     proofUrl: "",
   });
   const [userLiked, setUserLiked] = React.useState(isLike);
-
-  const buttonSx = {
-    ...(success && {
-      bgcolor: green[500],
-      "&:hover": {
-        bgcolor: green[700],
-      },
-    }),
-  };
 
   React.useEffect(() => {
     return () => {
@@ -144,9 +130,23 @@ const CompanyDetail = ({
     }
   };
 
-  const handleLoadMore = () => {
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleLoadMoreComment = () => {
     if (commentData.length < commentCount) {
-      setCommentData(comments.slice(0, commentData.length + 2));
+      setCommentData(comments.slice(0, commentData.length + COMMENT_ITEMS));
+    }
+  };
+
+  const handleLoadMoreJob = () => {
+    if (jobData.length < jobs.length) {
+      setJobData(jobs.slice(0, jobData.length + JOB_ITEMS));
     }
   };
 
@@ -163,7 +163,7 @@ const CompanyDetail = ({
   return (
     <div>
       <Header />
-      <div className="pt-[8rem] px-28 flex bg-gray-100 min-h-screen gap-9">
+      <div className="pt-[8rem] px-28 flex bg-gray-100 min-h-screen gap-9 pb-10">
         <div className="w-[70%]">
           <Box className="bg-white rounded p-7">
             <div className="flex">
@@ -217,12 +217,12 @@ const CompanyDetail = ({
           </Box>
 
           <div className="flex flex-wrap gap-10 justify-between mt-10">
-            {jobs?.results.length && (
+            {jobData.length > 0 && (
               <>
-                {jobs.results.map((job) => (
+                {jobData.map((job) => (
                   <Card
-                    sx={{ display: "flex" }}
-                    className="w-[45%] mt-2 cursor-pointer"
+                    sx={{ display: "flex", alignItems: "center" }}
+                    className="w-[47%] mt-2 cursor-pointer"
                     key={job._id}
                     onClick={() => router.push(`/jobs/${job._id}`)}
                   >
@@ -246,22 +246,37 @@ const CompanyDetail = ({
                           color="text.secondary"
                           component="div"
                         >
-                          Công ty {(job.company as ICompany).companyName}
+                          Công ty {company.companyName}
                         </Typography>
-                        <Typography
-                          variant="subtitle1"
-                          color="text.secondary"
-                          component="div"
-                        >
-                          {job.salary / 1e6} triệu{" "}
-                          <span className="ml-4">
-                            {(job.company as ICompany).address}
-                          </span>
-                        </Typography>
+                        <div className="flex justify-between pr-6 w-[92%]">
+                          <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                            component="div"
+                          >
+                            {job.salary / 1e6} triệu
+                          </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                            component="div"
+                            className="truncate w-2/3 text-right"
+                          >
+                            {company.address}
+                          </Typography>
+                        </div>
                       </CardContent>
                     </Box>
                   </Card>
                 ))}
+                {jobData.length !== jobs.length && (
+                  <div
+                    className="text-[#3448F8] text-lg text-center py-4 cursor-pointer w-full"
+                    onClick={handleLoadMoreJob}
+                  >
+                    Xem thêm...
+                  </div>
+                )}
               </>
             )}
           </div>
@@ -298,7 +313,7 @@ const CompanyDetail = ({
               {commentData.length !== comments.length && (
                 <div
                   className="text-[#A234F8] text-sm text-center pt-6 pb-4 cursor-pointer"
-                  onClick={handleLoadMore}
+                  onClick={handleLoadMoreComment}
                 >
                   Xem thêm...
                 </div>
@@ -465,7 +480,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       company: JSON.parse(JSON.stringify(company)),
       totalLike: JSON.parse(JSON.stringify(totalLike)),
       comments: JSON.parse(JSON.stringify(comments)),
-      jobs: JSON.parse(JSON.stringify(jobs)),
+      jobs: JSON.parse(JSON.stringify(jobs?.results ?? [])),
       isLike,
     },
   };
