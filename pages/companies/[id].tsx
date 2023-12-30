@@ -167,21 +167,25 @@ const CompanyDetail = ({
         <div className="w-[70%]">
           <Box className="bg-white rounded p-7">
             <div className="flex">
-              <div className="w-24 h-24 ">
+              <div className="w-32 h-32 ">
                 <img
                   src={company.avatarUrl}
                   alt="company ava"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="ml-24 flex items-center text-2xl">
-                {likeCount}{" "}
-                <FavoriteIcon
-                  className={`${
-                    userLiked ? "text-[#FF0000]" : "text-black"
-                  } cursor-pointer`}
-                  onClick={handleLike}
-                />
+              <div className="ml-14 flex justify-center text-2xl">
+                <div className="flex mr-2 justify-center items-center">
+                  {likeCount}{" "}
+                </div>
+                <div className="flex justify-center items-center">
+                  <FavoriteIcon
+                    className={`${
+                      userLiked ? "text-[#FF0000]" : "text-black"
+                    } cursor-pointer`}
+                    onClick={handleLike}
+                  />
+                </div>
               </div>
             </div>
             <Typography
@@ -270,14 +274,14 @@ const CompanyDetail = ({
                   <div className="flex gap-7 px-4 pt-9 pb-5">
                     <Avatar
                       alt="Avatar"
-                      src={comment.user.avatarUrl}
+                      src={comment?.user?.avatarUrl}
                       sx={{ width: 90, height: 90 }}
                     />
                     <div>
                       {comment.anonymous ? (
                         <div className="text-base font-bold">
-                          {`${comment.user.firstName ?? ""} ${
-                            comment.user.lastName ?? ""
+                          {`${comment?.user?.firstName ?? ""} ${
+                            comment?.user?.lastName ?? ""
                           }`}
                         </div>
                       ) : (
