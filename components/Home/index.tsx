@@ -146,7 +146,7 @@ const Home = ({
             {/* job */}
             {jobData.length > 0 ? (
               <div className="w-full mx-auto">
-                <div className="mx-28 flex flex-wrap gap-6 gap-y-10 mt-10 justify-between">
+                <div className="mx-28 flex flex-wrap gap-6 mt-10 justify-evenly">
                   {jobData.map((job) => (
                     <JobItem data={job} key={job._id} />
                   ))}

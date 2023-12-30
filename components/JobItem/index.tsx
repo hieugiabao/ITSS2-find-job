@@ -12,7 +12,7 @@ interface JobItemProps {
 const JobItem = ({ data }: JobItemProps) => {
   const company = data.company as ICompany;
   return (
-    <Link href={`/jobs/${data._id}`} className="w-[30%]">
+    <Link href={`/jobs/${data._id}`} className="min-w-[30%] grow">
       <Card sx={{ display: "flex" }}>
         <CardMedia
           component="img"
