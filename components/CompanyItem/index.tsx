@@ -14,16 +14,18 @@ interface CompanyItemProps {
 
 const CompanyItem = ({ data }: CompanyItemProps) => {
   return (
-    <Card sx={{ maxWidth: 300 }} className="w-[30%]">
+    <Card sx={{ maxWidth: 320 }} className="w-[32%]">
       <Link href={`/companies/${data._id}`} className="block">
         <CardActionArea>
-          <CardMedia
-            component="img"
-            width={280}
-            image={data.avatarUrl}
-            alt="green iguana"
-            className="h-48"
-          />
+          <div className="w-full h-auto overflow-hidden">
+            <CardMedia
+              component="img"
+              width={280}
+              image={data.avatarUrl}
+              alt="green iguana"
+              className="h-48 cursor-pointer hover:scale-125 transition duration-300 ease-in-out object-cover"
+            />
+          </div>
           <CardContent>
             <Typography
               gutterBottom
@@ -36,7 +38,7 @@ const CompanyItem = ({ data }: CompanyItemProps) => {
             <Typography
               variant="body2"
               color="text.secondary"
-              className="text-center"
+              className="text-center mb-5"
             >
               {data.address}
             </Typography>

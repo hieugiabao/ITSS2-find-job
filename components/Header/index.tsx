@@ -167,8 +167,8 @@ const Header = () => {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" className="bg-white text-black z-10">
+    <Box sx={{ flexGrow: 1 }} className="fixed w-full z-[999]">
+      <AppBar position="static" className="bg-white text-black z-10 px-8">
         <Toolbar>
           <Link href={"/"}>
             <IconButton
@@ -178,7 +178,7 @@ const Header = () => {
               aria-label="open drawer"
               sx={{ mr: 2 }}
             >
-              <Image src={Logo} width={48} height={48} alt="Logo" />
+              <Image src={Logo} width={80} height={80} alt="Logo" />
             </IconButton>
           </Link>
           <Box
@@ -186,7 +186,7 @@ const Header = () => {
               flexGrow: 1,
               display: { xs: "none", md: "flex" },
               ml: 10,
-              fontSize: 16,
+              fontSize: 20,
               gap: 4,
             }}
           >
@@ -199,6 +199,7 @@ const Header = () => {
                   display: "block",
                   cursor: "pointer",
                 }}
+                className="hover:text-red-800 transition-all"
                 onClick={() => {
                   router.push(page.path);
                 }}
@@ -209,7 +210,7 @@ const Header = () => {
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Search className="w-[578px] bg-gray-100 mr-16 rounded-3xl text-base">
+            <Search className="w-[578px] flex bg-gray-100 mr-16 rounded-3xl text-base">
               <SearchIconWrapper>
                 <SearchIcon className="text-gray-500" />
               </SearchIconWrapper>
@@ -223,19 +224,23 @@ const Header = () => {
                 }}
               />
             </Search>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-              className="w-12 h-12"
-            >
-              <AccountCircle className="w-full" />
-            </IconButton>
-            <div className="block ml-3 py-3">Thanhduong</div>
+            <div className="flex justify-center cursor-pointer items-center">
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+                className="w-12 h-12"
+              >
+                <AccountCircle className="h-8 w-8" />
+              </IconButton>
+              <div className="block ml-3 py-3 hover:text-red-800 transition-all text-xl">
+                Thanhduong
+              </div>
+            </div>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton

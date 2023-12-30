@@ -163,7 +163,7 @@ const CompanyDetail = ({
   return (
     <div>
       <Header />
-      <div className="pt-20 px-28 flex bg-gray-100 min-h-screen gap-9">
+      <div className="pt-[8rem] px-28 flex bg-gray-100 min-h-screen gap-9">
         <div className="w-[70%]">
           <Box className="bg-white rounded p-7">
             <div className="flex">

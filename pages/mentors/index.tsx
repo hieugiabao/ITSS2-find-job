@@ -17,6 +17,7 @@ import MentorItem from "../../components/MentorItem";
 import { GetServerSideProps } from "next";
 import dbConnect from "@/dbConnect";
 import { getMentorsPaginated } from "@/user.service";
+import categorydata from "../../data/Category.json";
 
 type SearchData = {
   l: string;
@@ -69,7 +70,7 @@ const Index: FC<Props> = ({ mentors: initialMentors }) => {
   return (
     <>
       <Header />
-      <main className="bg-gray-100 pt-[1px] min-h-screen">
+      <main className="bg-gray-100 pt-[8rem] min-h-screen">
         <div className="flex mx-28 gap-4 my-3">
           <div className="my-5 text-xl ">Danh sách mentor</div>
           <FormControl sx={{ m: 1, minWidth: 200, backgroundColor: "#fff" }}>
@@ -82,12 +83,19 @@ const Index: FC<Props> = ({ mentors: initialMentors }) => {
               inputProps={{ "aria-label": "Without label" }}
             >
               <MenuItem value="">Tất cả ngành nghề</MenuItem>
-              <MenuItem value={"1"}>Sản xuất và chế biến</MenuItem>
+              {/* <MenuItem value={"1"}>Sản xuất và chế biến</MenuItem>
               <MenuItem value={"2"}>Kiến trúc và xây dựng</MenuItem>
               <MenuItem value={"3"}>Kinh doanh</MenuItem>
               <MenuItem value={"4"}>Công nghệ - thông tin</MenuItem>
               <MenuItem value={"5"}>Luật - nhân văn</MenuItem>
-              <MenuItem value={"6"}>Nghệ thuật - thẩm mỹ - đồ họa</MenuItem>
+              <MenuItem value={"6"}>Nghệ thuật - thẩm mỹ - đồ họa</MenuItem> */}
+              {categorydata.map((e) => {
+                return (
+                  <MenuItem key={e._id} value={e._id.toString()}>
+                    {e.name}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
 
@@ -148,7 +156,7 @@ const Index: FC<Props> = ({ mentors: initialMentors }) => {
             {/* mentors */}
             {mentorsList.length > 0 ? (
               <div className="w-full mx-auto">
-                <div className="mx-28 flex flex-wrap gap-6 gap-y-10 mt-10 justify-around">
+                <div className="mx-28 flex flex-wrap gap-2 gap-y-5 mt-10 justify-around">
                   {mentorsList.map((mentor) => (
                     <MentorItem data={mentor} key={mentor._id} />
                   ))}

@@ -77,7 +77,7 @@ const MentorDetail = ({ mentor }: MentorDetailProps) => {
   return (
     <div>
       <Header />
-      <div className="pt-20 px-28 flex bg-gray-100 min-h-screen gap-9">
+      <div className="pt-[8rem] px-28 flex bg-gray-100 min-h-screen gap-9">
         <div className="w-[70%]">
           <Card sx={{ display: "flex" }} className="h-52">
             <CardMedia

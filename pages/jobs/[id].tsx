@@ -77,7 +77,7 @@ const JobDetail = ({ job }: JobDetailProps) => {
   return (
     <div>
       <Header />
-      <div className="pt-20 px-28 flex bg-gray-100 min-h-screen gap-9">
+      <div className="pt-[8rem] px-28 flex bg-gray-100 min-h-screen gap-9">
         <div className="w-[70%]">
           <Card sx={{ display: "flex" }} className="h-52">
             <CardMedia
@@ -143,7 +143,10 @@ const JobDetail = ({ job }: JobDetailProps) => {
               Xem thêm
             </Link>
           </div>
-          <Card sx={{ display: "flex", alignItems: "center", paddingLeft: "10px" }} className="w-full mt-2">
+          <Card
+            sx={{ display: "flex", alignItems: "center", paddingLeft: "10px" }}
+            className="w-full mt-2"
+          >
             <CardMedia
               component="img"
               sx={{ width: 100, height: 100, p: 1 }}
@@ -177,7 +180,10 @@ const JobDetail = ({ job }: JobDetailProps) => {
             </Box>
           </Card>
 
-          <Card sx={{ display: "flex", alignItems: "center", paddingLeft: "10px" }} className="w-full mt-2">
+          <Card
+            sx={{ display: "flex", alignItems: "center", paddingLeft: "10px" }}
+            className="w-full mt-2"
+          >
             <CardMedia
               component="img"
               sx={{ width: 100, height: 100, p: 1 }}

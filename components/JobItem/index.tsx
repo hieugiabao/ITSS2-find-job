@@ -13,12 +13,16 @@ const JobItem = ({ data }: JobItemProps) => {
   const company = data.company as ICompany;
   return (
     <Link href={`/jobs/${data._id}`} className="min-w-[30%] grow">
-      <Card sx={{ display: "flex" }}>
+      <Card
+        sx={{ display: "flex" }}
+        className="hover:bg-slate-50 transition duration-300"
+      >
         <CardMedia
           component="img"
           sx={{ width: 151, p: 1 }}
           image={company.avatarUrl}
           alt="Live from space album cover"
+          className="cursor-pointer hover:scale-110 transition duration-300 ease-in-out object-cover"
         />
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>

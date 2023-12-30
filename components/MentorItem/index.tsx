@@ -9,14 +9,21 @@ interface MentorItemProps {
 
 const MentorItem = ({ data }: MentorItemProps) => {
   return (
-    <Link href={`/mentors/${data._id}`} className="w-[40%]">
-      <Card sx={{ display: "flex" }}>
-        <CardMedia
-          component="img"
-          sx={{ width: 110, height: 110, p: 1, borderRadius: 15 }}
-          image={data.avatarUrl}
-          alt="Live from space album cover"
-        />
+    <Link href={`/mentors/${data._id}`} className="w-[45%]">
+      <Card
+        sx={{ display: "flex" }}
+        className="hover:bg-slate-50 transition-all"
+      >
+        <div className="overflow-hidden">
+          <CardMedia
+            component="img"
+            sx={{ width: 120, height: 120, p: 1, borderRadius: 15 }}
+            image={data.avatarUrl}
+            alt="Live from space album cover"
+            className="cursor-pointer hover:scale-105 transition duration-300 ease-in-out object-cover"
+          />
+        </div>
+
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
             <Typography component="div" variant="h5">

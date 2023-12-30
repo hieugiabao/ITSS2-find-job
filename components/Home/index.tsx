@@ -48,9 +48,9 @@ const Home = ({
   return (
     <>
       <Header />
-      <main className="bg-gray-100 pt-[1px] min-h-screen">
+      <main className="bg-gray-100 pt-[8rem] min-h-screen">
         <div className="flex mx-28 gap-4 my-3">
-          <div className="my-5 text-xl ">Việc làm mới nhất</div>
+          <div className="my-5 text-xl font-extrabold ">Việc làm mới nhất</div>
           <FormControl sx={{ m: 1, minWidth: 200, backgroundColor: "#fff" }}>
             <Select
               value={`${searchData.add}`}
@@ -119,7 +119,11 @@ const Home = ({
             >
               <MenuItem value="">Tất cả ngành nghề</MenuItem>
               {categorydata.map((e) => {
-                return <MenuItem value={e._id.toString()}>{e.name}</MenuItem>;
+                return (
+                  <MenuItem key={e._id} value={e._id.toString()}>
+                    {e.name}
+                  </MenuItem>
+                );
               })}
             </Select>
           </FormControl>
@@ -170,7 +174,7 @@ const Home = ({
             )}
             {/* company */}
             <div className="mx-28 flex flex-wrap gap-6 gap-y-10 mt-10">
-              <h1 className="text-xl">Công ty hàng đầu</h1>
+              <h1 className="text-xl font-extrabold">Công ty hàng đầu</h1>
             </div>
             {companyData.length > 0 ? (
               <div className="w-full mx-auto">
@@ -179,7 +183,7 @@ const Home = ({
                     <CompanyItem data={company} key={company._id} />
                   ))}
                 </div>
-                <div className="mt-20 pb-80 w-full flex justify-center">
+                <div className="mt-10 pb-80 w-full flex justify-center">
                   <Pagination
                     count={totalCompanyPages}
                     variant="text"

@@ -25,11 +25,11 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 import React, { use } from "react";
 import Header from "../../components/Header";
-import { getUserById,updateUser } from "../../lib/user.service";
+import { getUserById, updateUser } from "../../lib/user.service";
 import { IAddress } from "../../models/Address";
 import { IUser } from "../../models/User";
 import dbConnect from "@/dbConnect";
-import CreateIcon from '@mui/icons-material/Create';
+import CreateIcon from "@mui/icons-material/Create";
 import { useRouter } from "next/navigation";
 interface UserDetailProps {
   user: IUser;
@@ -40,14 +40,13 @@ const UserDetail = ({ user }: UserDetailProps) => {
   const [like, setLike] = React.useState(true);
   const [comment, setComment] = React.useState(false);
   const [file, setFile] = React.useState("Không");
-  const [address, setAddr] = React.useState((user?.address as IAddress)?._id)
-  const [description, setDes] = React.useState(user?.description)
-  const [username, setName] = React.useState(user?.username)
-  const [id,setID] = React.useState(String(user?._id))
-  const [formUpdate, setFormUpdate] =  React.useState(false);
+  const [address, setAddr] = React.useState((user?.address as IAddress)?._id);
+  const [description, setDes] = React.useState(user?.description);
+  const [username, setName] = React.useState(user?.username);
+  const [id, setID] = React.useState(String(user?._id));
+  const [formUpdate, setFormUpdate] = React.useState(false);
   const router = useRouter();
 
-  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -76,10 +75,9 @@ const UserDetail = ({ user }: UserDetailProps) => {
   const handleName = (e: any) => {
     setName(e.target.value);
   };
-  const handleDescription = (e: any) =>
-  {
+  const handleDescription = (e: any) => {
     setDes(e.target.value);
-  }
+  };
 
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -93,7 +91,7 @@ const UserDetail = ({ user }: UserDetailProps) => {
       },
     }),
   };
- 
+
   React.useEffect(() => {
     return () => {
       clearTimeout(timer.current);
@@ -114,18 +112,16 @@ const UserDetail = ({ user }: UserDetailProps) => {
       }, 3000);
     }
   };
-  const handleUpdate=async () => {
+  const handleUpdate = async () => {
     const data = {
-      name : username,
+      name: username,
       des: description,
-      addr: address
+      addr: address,
     };
-     const response = await fetch(`/api/users/${id}`, {
+    const response = await fetch(`/api/users/${id}`, {
       method: "PUT",
       body: JSON.stringify(data),
-      
-     })
-     
+    });
 
     //  const result = await updateUser(
     //   {
@@ -139,14 +135,12 @@ const UserDetail = ({ user }: UserDetailProps) => {
     setFormUpdate(false);
     //this will reload the page without doing SSR
     router.refresh();
-  }
-   
-  
+  };
 
   return (
     <div>
       <Header />
-      <div className="pt-20 px-28 flex bg-gray-100 gap-9">
+      <div className="pt-[8rem] px-28 flex bg-gray-100 gap-9">
         <div className="w-[100%] ">
           <Card sx={{ display: "flex" }} className=" py-6 pl-48">
             <CardMedia
@@ -154,23 +148,21 @@ const UserDetail = ({ user }: UserDetailProps) => {
               sx={{ width: 240, p: 4 }}
               image={user.avatarUrl}
               alt="Live from space album cover"
-              
-              
             />
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               <CardContent sx={{ flex: "1 0 auto" }}>
                 <Typography component="div" variant="h5">
                   {user.username}
                   <IconButton
-                     size="large"
-                     aria-label="account of current user"
-                     aria-controls="primary-search-account-menu"
-                     aria-haspopup="true"
-                     color="inherit"
-                     onClick={handleOpenFormUpdate}
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="primary-search-account-menu"
+                    aria-haspopup="true"
+                    color="inherit"
+                    onClick={handleOpenFormUpdate}
                   >
-               <CreateIcon />
-               </IconButton>
+                    <CreateIcon />
+                  </IconButton>
                 </Typography>
                 <Typography
                   variant="subtitle1"
@@ -195,8 +187,7 @@ const UserDetail = ({ user }: UserDetailProps) => {
                   color="text.secondary"
                   component="div"
                   className="mt-3"
-                >
-                </Typography>
+                ></Typography>
               </CardContent>
             </Box>
             <div className="flex-1 text-right">
@@ -213,75 +204,59 @@ const UserDetail = ({ user }: UserDetailProps) => {
               </Button>
             </div>
           </Card>
-          
         </div>
-       
       </div>
       <div className="grid grid-cols-3 gap-3 pt-10 px-28  bg-gray-100">
-      <div >
-        {
-          like?(
+        <div>
+          {like ? (
             <Button
-              
-            style={{
-            
-              background:
-              "blue",
-            }}
-            className="px-8 py-3 h-12 mt-8 mr-14"
-            variant="contained"
-            
-          >
-            Danh sách công ty đã like
-          </Button>
-             
-          ):  <Button
-              
-          style={{
-          
-            background:
-            "gray",
-          }}
-          className="px-8 py-3 h-12 mt-8 mr-14"
-          variant="contained"
-          onClick={handleLike}
-        >
-          Danh sách công ty đã like
-        </Button>
-        }
-             
-       </div>
-       <div >
-         {
-          comment?(
+              style={{
+                background: "blue",
+              }}
+              className="px-8 py-3 h-12 mt-8 mr-14"
+              variant="contained"
+            >
+              Danh sách công ty đã like
+            </Button>
+          ) : (
             <Button
-            style={{
-              background: "blue"
-            }}
-            className="px-8 py-3 h-12 mt-8 mr-14"
-            variant="contained"
-              >
-            Danh sách công ty đã đánh giá
-          </Button>
-
-          ):
-          (
+              style={{
+                background: "gray",
+              }}
+              className="px-8 py-3 h-12 mt-8 mr-14"
+              variant="contained"
+              onClick={handleLike}
+            >
+              Danh sách công ty đã like
+            </Button>
+          )}
+        </div>
+        <div>
+          {comment ? (
             <Button
-            style={{
-              background: "gray"
-            }}
-            className="px-8 py-3 h-12 mt-8 mr-14"
-            variant="contained"
-            onClick={handleComment}
-          >
-            Danh sách công ty đã đánh giá
-          </Button>
-          )
-         }
-             
-       </div>
+              style={{
+                background: "blue",
+              }}
+              className="px-8 py-3 h-12 mt-8 mr-14"
+              variant="contained"
+            >
+              Danh sách công ty đã đánh giá
+            </Button>
+          ) : (
+            <Button
+              style={{
+                background: "gray",
+              }}
+              className="px-8 py-3 h-12 mt-8 mr-14"
+              variant="contained"
+              onClick={handleComment}
+            >
+              Danh sách công ty đã đánh giá
+            </Button>
+          )}
+        </div>
       </div>
-     
+
       <Dialog
         open={open}
         onClose={handleClose}
@@ -292,7 +267,6 @@ const UserDetail = ({ user }: UserDetailProps) => {
           Nâng cấp mentor
         </DialogTitle>
         <DialogContent>
-
           <div className="min-w-[496px]">
             <label htmlFor="email" className="font-bold w-full">
               Email
@@ -388,10 +362,9 @@ const UserDetail = ({ user }: UserDetailProps) => {
           Chỉnh sửa Profile
         </DialogTitle>
         <DialogContent>
-
           <div className="min-w-[496px]">
             <label htmlFor="name" className="font-bold w-full">
-             Tên
+              Tên
             </label>
             <TextField
               fullWidth
@@ -402,43 +375,46 @@ const UserDetail = ({ user }: UserDetailProps) => {
               sx={{ backgroundColor: "#D9D9D9" }}
               onChange={handleName}
             />
-             <label htmlFor="name" className="font-bold my-2 block">
-             Nơi ở
+            <label htmlFor="name" className="font-bold my-2 block">
+              Nơi ở
             </label>
-            <FormControl  fullWidth sx={{backgroundColor: "#D9D9D9"}}>
-            <Select 
-              value={address}
-              onChange={handleAddress}
-              // displayEmpty
-              // inputProps={{ "aria-label": "Without label" }}
-            >
-              <MenuItem value="">Tất cả tỉnh / Thành phố</MenuItem>
-              <MenuItem value={"1"}>Hà Nội</MenuItem>
-              <MenuItem value={"2"}>Hồ Chí Minh</MenuItem>
-              <MenuItem value={"3"}>Đà Nẵng</MenuItem>
-              <MenuItem value={"4"}>Hải Phòng</MenuItem>
-              <MenuItem value={"5"}>Cần Thơ</MenuItem>
-              <MenuItem value={"6"}>Biên Hòa</MenuItem>
-            </Select>
-          </FormControl>
+            <FormControl fullWidth sx={{ backgroundColor: "#D9D9D9" }}>
+              <Select
+                value={address}
+                onChange={handleAddress}
+                // displayEmpty
+                // inputProps={{ "aria-label": "Without label" }}
+              >
+                <MenuItem value="">Tất cả tỉnh / Thành phố</MenuItem>
+                <MenuItem value={"1"}>Hà Nội</MenuItem>
+                <MenuItem value={"2"}>Hồ Chí Minh</MenuItem>
+                <MenuItem value={"3"}>Đà Nẵng</MenuItem>
+                <MenuItem value={"4"}>Hải Phòng</MenuItem>
+                <MenuItem value={"5"}>Cần Thơ</MenuItem>
+                <MenuItem value={"6"}>Biên Hòa</MenuItem>
+              </Select>
+            </FormControl>
             <label htmlFor="" className="font-bold my-2 block">
               Mô tả
             </label>
-            <TextField multiline
-             rows={6}
-            maxRows={6}
-             fullWidth
-             id="des"
-             value={description}
-             onChange={handleDescription}
-             className="mt-2 "
-             sx={{ backgroundColor: "#D9D9D9" }}
+            <TextField
+              multiline
+              rows={6}
+              maxRows={6}
+              fullWidth
+              id="des"
+              value={description}
+              onChange={handleDescription}
+              className="mt-2 "
+              sx={{ backgroundColor: "#D9D9D9" }}
             />
-             </div>
-       
+          </div>
         </DialogContent>
         <DialogActions className="flex justify-around">
-          <Button onClick={handleCloseFormUpdate} className="bg-[#1E3EE9] text-white">
+          <Button
+            onClick={handleCloseFormUpdate}
+            className="bg-[#1E3EE9] text-white"
+          >
             Hủy
           </Button>
           <Box sx={{ m: 1, position: "relative" }}>
@@ -451,7 +427,7 @@ const UserDetail = ({ user }: UserDetailProps) => {
               disabled={loading}
               onClick={handleUpdate}
             >
-             OK
+              OK
             </Button>
             {success && (
               <CheckIcon
