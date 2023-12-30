@@ -143,7 +143,7 @@ const JobDetail = ({ job }: JobDetailProps) => {
               Xem thêm
             </Link>
           </div>
-          <Card sx={{ display: "flex" }} className="w-full mt-2">
+          <Card sx={{ display: "flex", alignItems: "center", paddingLeft: "10px" }} className="w-full mt-2">
             <CardMedia
               component="img"
               sx={{ width: 100, height: 100, p: 1 }}
@@ -177,7 +177,7 @@ const JobDetail = ({ job }: JobDetailProps) => {
             </Box>
           </Card>
 
-          <Card sx={{ display: "flex" }} className="w-full mt-2">
+          <Card sx={{ display: "flex", alignItems: "center", paddingLeft: "10px" }} className="w-full mt-2">
             <CardMedia
               component="img"
               sx={{ width: 100, height: 100, p: 1 }}
