@@ -72,7 +72,7 @@ const Index: FC<Props> = ({ mentors: initialMentors }) => {
       <Header />
       <main className="bg-gray-100 pt-[8rem] min-h-screen">
         <div className="flex mx-28 gap-4 my-3">
-          <div className="my-5 text-xl ">Danh sách mentor</div>
+          <div className="my-5 text-xl font-extrabold ">Danh sách mentor</div>
           <FormControl sx={{ m: 1, minWidth: 200, backgroundColor: "#fff" }}>
             <Select
               value={`${searchData.ind}`}
