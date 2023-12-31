@@ -224,21 +224,22 @@ const JobDetail = ({ job, relatedJobs }: JobDetailProps) => {
                             color="text.secondary"
                             component="div"
                           >
-                            {(job.company as ICompany).companyName}{" "}
+                            {(job.company as ICompany).companyName}
                           </Typography>
-                          <div className="flex justify-between pr-6 w-3/4">
+                          <div className="flex justify-between pr-6 gap-1">
                             <Typography
                               variant="subtitle1"
                               color="text.secondary"
                               component="div"
+                              className="line-clamp-1 w-1/2"
                             >
-                              {job.salary / 1e6} triệu
+                              {job.salary / 1e6 + " triệu"}
                             </Typography>
                             <Typography
                               variant="subtitle1"
                               color="text.secondary"
                               component="span"
-                              className="truncate w-2/3 text-right"
+                              className="w-1/2 line-clamp-1 text-ellipsis"
                             >
                               {(job.company as ICompany).address}
                             </Typography>
