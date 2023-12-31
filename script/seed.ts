@@ -36,7 +36,7 @@ async function main() {
           fs.readFileSync(path.resolve(process.cwd(), file), "utf-8")
         );
 
-        const collectionName = file.split("\\")[1].split(".")[0];
+        const collectionName = file.split("/")[1].split(".")[0];
         const collection = (await import(`../models/${collectionName}`))
           .default;
         await collection.deleteMany({});

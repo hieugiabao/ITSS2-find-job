@@ -12,10 +12,10 @@ interface JobItemProps {
 const JobItem = ({ data }: JobItemProps) => {
   const company = data.company as ICompany;
   return (
-    <Link href={`/jobs/${data._id}`} className="min-w-[30%] grow">
+    <Link href={`/jobs/${data._id}`} className="min-w-[30%] max-w-[30%] grow">
       <Card
         sx={{ display: "flex" }}
-        className="hover:bg-slate-50 transition duration-300"
+        className="hover:bg-slate-50 h-[20vh] transition duration-300"
       >
         <CardMedia
           component="img"
@@ -26,7 +26,11 @@ const JobItem = ({ data }: JobItemProps) => {
         />
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography component="div" variant="h5">
+            <Typography
+              component="div"
+              variant="h5"
+              className="line-clamp-1 text-ellipsis"
+            >
               {data.title}
             </Typography>
             <Typography
