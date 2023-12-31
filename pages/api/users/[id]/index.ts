@@ -28,7 +28,7 @@ export default async function handle(
         const { id } = req.query;
 
         const { username, address, description, avatarUrl } = req.body;
-        let [firstName, lastName] = username?.[0]?.split(" ", 2) || [];
+        let [firstName, lastName] = username?.split(" ", 2) || [];
         if (firstName && !lastName) {
           lastName = "";
         }
