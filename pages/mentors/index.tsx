@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Header from "../../components/Header";
 import {
   Box,
@@ -40,6 +40,10 @@ const Index: FC<Props> = ({ mentors: initialMentors }) => {
     ind: "",
     exp: "",
   });
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchData, queryDebounce]);
 
   const [mentorsPageData, isLoading, isError] = useFetchData<
     ApiResponse<PageResult<IUser>>

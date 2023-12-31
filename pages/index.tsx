@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 import Home from "../components/Home";
 import { useSearchContext } from "../context/search-context";
@@ -39,6 +39,11 @@ const Index: FC<Props> = ({
     exp: "",
     sal: "",
   });
+
+  useEffect(() => {
+    setJobPage(1);
+    setCompanyPage(1);
+  }, [searchData, queryDebounce]);
 
   const [companiesPageData, fetchCompanyLoading, fetchCompanyError] =
     useFetchData<ApiResponse<PageResult<ICompany>>>(
