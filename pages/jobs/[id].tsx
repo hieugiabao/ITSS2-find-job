@@ -88,7 +88,7 @@ const JobDetail = ({ job, relatedJobs }: JobDetailProps) => {
       );
     }
   };
-
+  console.log(relatedJobsData);
   return (
     <div>
       <Header />
@@ -192,60 +192,63 @@ const JobDetail = ({ job, relatedJobs }: JobDetailProps) => {
           </div>
           {relatedJobsData.length > 0 ? (
             <>
-              {relatedJobsData.map((job) => (
-                <Link href={`/jobs/${job._id}`} key={job._id}>
-                  <Card
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      paddingLeft: "10px",
-                    }}
-                    className="w-full mt-2"
-                  >
-                    <CardMedia
-                      component="img"
-                      sx={{ width: 100, height: 100, p: 1 }}
-                      image={job.company.avatarUrl}
-                      alt="Live from space album cover"
-                    />
-                    <Box sx={{ display: "flex", flexDirection: "column" }}>
-                      <CardContent sx={{ flex: "1 0 auto" }}>
-                        <Typography
-                          component="div"
-                          variant="h6"
-                          className="text-base font-bold"
-                        >
-                          {job.title}
-                        </Typography>
-                        <Typography
-                          variant="subtitle1"
-                          color="text.secondary"
-                          component="div"
-                        >
-                          {(job.company as ICompany).companyName}{" "}
-                        </Typography>
-                        <div className="flex justify-between pr-6 w-3/4">
+              {relatedJobsData.map((job) => {
+                const company = job.company as ICompany;
+                return (
+                  <Link href={`/jobs/${job._id}`} key={job._id}>
+                    <Card
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        paddingLeft: "10px",
+                      }}
+                      className="w-full mt-2"
+                    >
+                      <CardMedia
+                        component="img"
+                        sx={{ width: 100, height: 100, p: 1 }}
+                        image={company.avatarUrl}
+                        alt="Live from space album cover"
+                      />
+                      <Box sx={{ display: "flex", flexDirection: "column" }}>
+                        <CardContent sx={{ flex: "1 0 auto" }}>
+                          <Typography
+                            component="div"
+                            variant="h6"
+                            className="text-base font-bold"
+                          >
+                            {job.title}
+                          </Typography>
                           <Typography
                             variant="subtitle1"
                             color="text.secondary"
                             component="div"
                           >
-                            {job.salary / 1e6} triệu
+                            {(job.company as ICompany).companyName}{" "}
                           </Typography>
-                          <Typography
-                            variant="subtitle1"
-                            color="text.secondary"
-                            component="span"
-                            className="truncate w-2/3 text-right"
-                          >
-                            {(job.company as ICompany).address}
-                          </Typography>
-                        </div>
-                      </CardContent>
-                    </Box>
-                  </Card>
-                </Link>
-              ))}
+                          <div className="flex justify-between pr-6 w-3/4">
+                            <Typography
+                              variant="subtitle1"
+                              color="text.secondary"
+                              component="div"
+                            >
+                              {job.salary / 1e6} triệu
+                            </Typography>
+                            <Typography
+                              variant="subtitle1"
+                              color="text.secondary"
+                              component="span"
+                              className="truncate w-2/3 text-right"
+                            >
+                              {(job.company as ICompany).address}
+                            </Typography>
+                          </div>
+                        </CardContent>
+                      </Box>
+                    </Card>
+                  </Link>
+                );
+              })}
             </>
           ) : (
             <div className="bg-white p-5 rounded">
