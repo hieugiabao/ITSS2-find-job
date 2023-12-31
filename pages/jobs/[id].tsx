@@ -205,7 +205,7 @@ const JobDetail = ({ job, relatedJobs }: JobDetailProps) => {
                     <CardMedia
                       component="img"
                       sx={{ width: 100, height: 100, p: 1 }}
-                      image="https://image.bnews.vn/MediaUpload/Org/2019/03/04/151429_01.png"
+                      image={job.company.avatarUrl}
                       alt="Live from space album cover"
                     />
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
