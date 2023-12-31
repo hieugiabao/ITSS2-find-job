@@ -88,7 +88,7 @@ const JobDetail = ({ job, relatedJobs }: JobDetailProps) => {
       );
     }
   };
-  console.log(relatedJobsData);
+  // console.log(relatedJobsData);
   return (
     <div>
       <Header />
