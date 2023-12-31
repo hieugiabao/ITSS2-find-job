@@ -317,6 +317,28 @@ async function getCommentedCompaniesByUserId(id: string): Promise<ICompany[]> {
         },
       },
     },
+    // make data is unique with the same company
+    {
+      $project: {
+        companies: {
+          $reduce: {
+            input: "$companies",
+            initialValue: [],
+            in: {
+              $cond: {
+                if: {
+                  $in: ["$$this", "$$value"],
+                },
+                then: "$$value",
+                else: {
+                  $concatArrays: ["$$value", ["$$this"]],
+                },
+              },
+            },
+          },
+        },
+      },
+    },
     {
       $project: {
         _id: 0,
