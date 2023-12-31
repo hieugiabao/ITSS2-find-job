@@ -33,6 +33,7 @@ import { IAddress } from "../../models/Address";
 import { ICompany } from "../../models/Company";
 import { IUser } from "../../models/User";
 import dynamic from "next/dynamic";
+import { uploadFile } from "@/firebase/storage";
 
 const Editor = dynamic(() => import("../../components/Editor"), { ssr: false });
 
@@ -132,23 +133,16 @@ const UserDetail = ({
   const handleUpdate = async () => {
     try {
       setLoading(true);
-      const form = new FormData();
-      if (userInfo.username !== "") {
-        form.append("username", userInfo.username);
-      }
-      if (userInfo.address !== "") {
-        form.append("address", userInfo.address);
-      }
-      if (userInfo.description && userInfo.description !== "") {
-        form.append("description", userInfo.description);
-      }
+      let avatarUrlResponse = "";
       if (avatar) {
-        form.append("avatar", avatar);
+        avatarUrlResponse = await uploadFile(
+          `avatar/${user._id}-${avatar.name}`,
+          avatar
+        );
       }
-      const response = await axios.post(`/api/users/${user._id}`, form, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const response = await axios.post(`/api/users/${user._id}`, {
+        ...userInfo,
+        avatarUrl: avatarUrlResponse || undefined,
       });
       if (response.data.success) {
         setSuccess(true);
