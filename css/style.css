@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 * {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif !important;
   box-sizing: border-box;
 }

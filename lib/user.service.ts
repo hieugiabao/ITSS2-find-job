@@ -1,3 +1,6 @@
+import Comment from "../models/Comment";
+import { ICompany } from "../models/Company";
+import Like from "../models/Like";
 import User, { IUser, UserRole } from "../models/User";
 import { PageOption, PageResult } from "../types";
 
@@ -8,10 +11,13 @@ type MentorFilter = {
   experience?: string;
 };
 type UserType = {
-  username?: string;
+  firstName?: string;
+  lastName?: string;
   address?: number;
   description?: string;
-}
+  avatarUrl?: string;
+};
+
 async function getMentorsPaginated(
   pageOption: PageOption,
   filter: MentorFilter = {}
@@ -164,15 +170,15 @@ async function getMentorById(id: string): Promise<IUser | null> {
         localField: "category",
         foreignField: "category",
         pipeline: [
-          { $match:
-                  {
-                      $and: [
-                              { $expr : { $ne: [ '$_id' , { $toObjectId: id } ] } },
-                              {role: UserRole.MENTOR }
-                            ]
-                  }   
-           },
-       ],
+          {
+            $match: {
+              $and: [
+                { $expr: { $ne: ["$_id", { $toObjectId: id }] } },
+                { role: UserRole.MENTOR },
+              ],
+            },
+          },
+        ],
         as: "suggestMentors",
       },
     },
@@ -195,7 +201,7 @@ async function getUserById(id: string): Promise<IUser | null> {
     },
     {
       $match: {
-         $expr: { $eq: ["$_id", { $toObjectId: id }] } 
+        $expr: { $eq: ["$_id", { $toObjectId: id }] },
       },
     },
     {
@@ -210,6 +216,17 @@ async function getUserById(id: string): Promise<IUser | null> {
       $unwind: "$address",
     },
     {
+      $lookup: {
+        from: "categories",
+        localField: "category",
+        foreignField: "_id",
+        as: "category",
+      },
+    },
+    {
+      $unwind: "$category",
+    },
+    {
       $project: {
         password: 0,
         __v: 0,
@@ -219,24 +236,102 @@ async function getUserById(id: string): Promise<IUser | null> {
 
   return result.length > 0 ? result[0] : null;
 }
-async function updateUser(userInfo: UserType = {}, id: string): Promise<IUser | null> {
-  const{username, description, address} = userInfo;
-  console.log("des:",description)
-  await User.updateOne(
-    { "_id": id  },
+async function updateUser(
+  id: string,
+  userInfo: UserType = {}
+): Promise<IUser | null> {
+  const result = await User.findByIdAndUpdate(
+    { _id: id },
     {
       $set: {
-      username: username,
-      description: description,
-      address: address
-       },
-    
+        ...userInfo,
+      },
     },
-    { upsert: true }
-  )
-  const result = await getUserById(id);
-  return result? result : null ;
+    { upsert: true, new: true }
+  ).exec();
 
+  return result;
 }
 
-export { getMentorsPaginated, getMentorById,getUserById,updateUser}
+async function getLikedCompaniesByUserId(id: string): Promise<ICompany[]> {
+  const results = await Like.aggregate([
+    {
+      $match: {
+        $expr: { $eq: ["$user", { $toObjectId: id }] },
+      },
+    },
+    {
+      $lookup: {
+        from: "companies",
+        localField: "company",
+        foreignField: "_id",
+        as: "company",
+      },
+    },
+    {
+      $unwind: "$company",
+    },
+    // make result a single array
+    {
+      $group: {
+        _id: null,
+        companies: {
+          $push: "$company",
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+      },
+    },
+  ]);
+
+  return results.length > 0 ? results[0].companies : [];
+}
+
+async function getCommentedCompaniesByUserId(id: string): Promise<ICompany[]> {
+  const results = await Comment.aggregate([
+    {
+      $match: {
+        $and: [{ $expr: { $eq: ["$user", { $toObjectId: id }] } }],
+      },
+    },
+    {
+      $lookup: {
+        from: "companies",
+        localField: "company",
+        foreignField: "_id",
+        as: "company",
+      },
+    },
+    {
+      $unwind: "$company",
+    },
+    // make result a single array
+    {
+      $group: {
+        _id: null,
+        companies: {
+          $push: "$company",
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+      },
+    },
+  ]);
+
+  return results.length > 0 ? results[0].companies : [];
+}
+
+export {
+  getMentorsPaginated,
+  getMentorById,
+  getUserById,
+  updateUser,
+  getLikedCompaniesByUserId,
+  getCommentedCompaniesByUserId,
+};

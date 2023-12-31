@@ -1,5 +1,7 @@
 import React, { FC, createContext, useMemo, useState } from "react";
 import { IUser } from "../models/User";
+import axios from "axios";
+import { ApiResponse } from "../types";
 
 export interface IUserContext {
   user: IUser | null | undefined;
@@ -40,6 +42,17 @@ export const UserProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<IUser>(defaultUser);
+
+  React.useEffect(() => {
+    const fetchUser = async () => {
+      const response = await axios.get<ApiResponse<IUser>>(
+        `/api/users/${defaultUser._id}`
+      );
+      const user = response.data.data;
+      if (user) setUser(user);
+    };
+    fetchUser();
+  }, []);
 
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
