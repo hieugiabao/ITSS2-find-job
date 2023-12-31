@@ -31,7 +31,7 @@ export default async function handle(
         res.status(500).json({ success: false });
       }
       break;
-    case "PUT":
+    case "POST":
       try {
         const { id } = req.query;
         console.log({ id });
@@ -79,10 +79,10 @@ export default async function handle(
         res.status(500).json({ success: false });
       }
       break;
-    case "POST":
+    case "PUT":
     case "DELETE":
     default:
-      res.setHeader("Allow", ["GET", "PUT"]);
+      res.setHeader("Allow", ["GET", "POST"]);
       res.status(405).end(`Method ${method} Not Allowed`);
       break;
   }

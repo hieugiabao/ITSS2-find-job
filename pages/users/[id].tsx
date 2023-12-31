@@ -145,7 +145,7 @@ const UserDetail = ({
       if (avatar) {
         form.append("avatar", avatar);
       }
-      const response = await axios.put(`/api/users/${user._id}`, form, {
+      const response = await axios.post(`/api/users/${user._id}`, form, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
