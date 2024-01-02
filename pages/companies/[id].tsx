@@ -199,60 +199,63 @@ const CompanyDetail = ({
               }
             </div>
           </Box>
-
-          <div className="flex flex-wrap gap-10 justify-between mt-10">
+          <div className="mt-[2rem] text-2xl">Những công việc đang tuyển</div>
+          <div className="flex flex-wrap gap-10 justify-between mt-[2rem]">
             {jobData.length > 0 && (
               <>
-                {jobData.map((job) => (
-                  <Card
-                    sx={{ display: "flex", alignItems: "center" }}
-                    className="w-[47%] mt-2 cursor-pointer"
-                    key={job._id}
-                    onClick={() => router.push(`/jobs/${job._id}`)}
-                  >
-                    <CardMedia
-                      component="img"
-                      sx={{ width: 100, height: 100, p: 1 }}
-                      image="https://image.bnews.vn/MediaUpload/Org/2019/03/04/151429_01.png"
-                      alt="Live from space album cover"
-                    />
-                    <Box sx={{ display: "flex", flexDirection: "column" }}>
-                      <CardContent sx={{ flex: "1 0 auto" }}>
-                        <Typography
-                          component="div"
-                          variant="h6"
-                          className="text-base font-bold"
-                        >
-                          {job.title}
-                        </Typography>
-                        <Typography
-                          variant="subtitle1"
-                          color="text.secondary"
-                          component="div"
-                        >
-                          Công ty {company.companyName}
-                        </Typography>
-                        <div className="flex justify-between pr-6 w-[92%]">
+                {jobData.map((job) => {
+                  const company = job.company as ICompany;
+                  return (
+                    <Card
+                      sx={{ display: "flex", alignItems: "center" }}
+                      className="w-[47%] mt-2 cursor-pointer"
+                      key={job._id}
+                      onClick={() => router.push(`/jobs/${job._id}`)}
+                    >
+                      <CardMedia
+                        component="img"
+                        sx={{ width: 100, height: 100, p: 1 }}
+                        image={company.avatarUrl}
+                        alt="Live from space album cover"
+                      />
+                      <Box sx={{ display: "flex", flexDirection: "column" }}>
+                        <CardContent sx={{ flex: "1 0 auto" }}>
                           <Typography
-                            variant="subtitle1"
-                            color="text.secondary"
                             component="div"
+                            variant="h6"
+                            className="text-base font-bold"
                           >
-                            {job.salary / 1e6} triệu
+                            {job.title}
                           </Typography>
                           <Typography
                             variant="subtitle1"
                             color="text.secondary"
                             component="div"
-                            className="truncate w-2/3 text-right"
                           >
-                            {company.address}
+                            {company.companyName}
                           </Typography>
-                        </div>
-                      </CardContent>
-                    </Box>
-                  </Card>
-                ))}
+                          <div className="flex justify-between pr-6 w-[92%]">
+                            <Typography
+                              variant="subtitle1"
+                              color="text.secondary"
+                              component="div"
+                            >
+                              {job.salary / 1e6} triệu
+                            </Typography>
+                            <Typography
+                              variant="subtitle1"
+                              color="text.secondary"
+                              component="div"
+                              className="truncate w-2/3 text-right"
+                            >
+                              {company.address}
+                            </Typography>
+                          </div>
+                        </CardContent>
+                      </Box>
+                    </Card>
+                  );
+                })}
                 {jobData.length !== jobs.length && (
                   <div
                     className="text-[#3448F8] text-lg text-center py-4 cursor-pointer w-full"

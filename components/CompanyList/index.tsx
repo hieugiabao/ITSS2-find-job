@@ -7,7 +7,7 @@ type Props = {
   emptyMessage?: string;
 };
 
-const SIZE = 3;
+const SIZE = 4;
 
 const CompanyList: React.FC<Props> = ({ companies, emptyMessage }) => {
   const [companyData, setCompanyData] = useState<ICompany[]>(companies);
@@ -24,7 +24,7 @@ const CompanyList: React.FC<Props> = ({ companies, emptyMessage }) => {
   return (
     <>
       {companyData.length > 0 ? (
-        <div className="flex justify-around items-center flex-wrap gap-10">
+        <div className="flex justify-around items-center flex-wrap gap-5">
           {companyData.map((company) => (
             <CompanyItem key={company._id} data={company} />
           ))}

@@ -111,6 +111,7 @@ const Header = () => {
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+      disableScrollLock={true}
     >
       <MenuItem onClick={() => router.push(`/users/${user?._id}`)}>
         Profile
@@ -131,7 +132,7 @@ const Header = () => {
       keepMounted
       transformOrigin={{
         vertical: "top",
-        horizontal: "right",
+        horizontal: "center",
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}

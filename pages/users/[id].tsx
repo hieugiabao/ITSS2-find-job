@@ -165,7 +165,7 @@ const UserDetail = ({
       <Header />
       <div className="pt-[8rem] pb-10 px-28 bg-gray-100 gap-9">
         <div className="w-[100%] ">
-          <Card sx={{ display: "flex" }} className=" py-6 pl-48">
+          <Card sx={{ display: "flex" }} className=" py-6 pl-20">
             <CardMedia
               component="img"
               sx={{ width: 240, p: 4 }}
