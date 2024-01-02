@@ -14,7 +14,7 @@ interface CompanyItemProps {
 
 const CompanyItem = ({ data }: CompanyItemProps) => {
   return (
-    <Card sx={{ maxWidth: 320 }} className="w-[25%]">
+    <Card sx={{ maxWidth: 320 }} className="w-[22%]">
       <Link href={`/companies/${data._id}`} className="block">
         <CardActionArea>
           <div className="w-full h-auto overflow-hidden">
