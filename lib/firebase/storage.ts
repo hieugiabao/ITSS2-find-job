@@ -1,9 +1,9 @@
-// import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-// import { storage } from "./firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "./firebase";
 
-// export async function uploadFile(path: string, file: File) {
-//   const newFileRef = ref(storage, path);
+export async function uploadFile(path: string, file: File) {
+  const newFileRef = ref(storage, path);
 
-//   await uploadBytesResumable(newFileRef, file);
-//   return await getDownloadURL(newFileRef);
-// }
+  await uploadBytesResumable(newFileRef, file);
+  return await getDownloadURL(newFileRef);
+}
