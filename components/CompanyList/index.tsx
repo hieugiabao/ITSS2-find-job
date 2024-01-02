@@ -24,7 +24,7 @@ const CompanyList: React.FC<Props> = ({ companies, emptyMessage }) => {
   return (
     <>
       {companyData.length > 0 ? (
-        <div className="flex justify-around items-center flex-wrap gap-5">
+        <div className="flex justify-around items-center flex-wrap gap-2">
           {companyData.map((company) => (
             <CompanyItem key={company._id} data={company} />
           ))}
