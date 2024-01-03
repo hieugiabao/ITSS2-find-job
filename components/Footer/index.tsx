@@ -5,11 +5,11 @@ const Footer = () => {
         <div className="flex flex-wrap text-left lg:text-left">
           <div className="w-full lg:w-6/12 px-4">
             <h4 className="text-3xl fonat-semibold text-gray-700">Trang thông tin tìm việc hàng đầu</h4>
-            <h5 className="text-lg mt-0 mb-2 text-gray-600">
+            <h5 className="text-lg mt-2 mb-2 text-gray-600">
               Tìm việc làm, tìm việc nhanh, tuyển dụng uy tín và hiệu quả!
             </h5>
             <div className="flex flex-row mt-6 lg:mb-0 mb-6">
-              <button className="flex bg-white text-gray-800 border font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2">
+              <button className="flex bg-white text-gray-800 border font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2 hover:bg-gray-100">
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path
                     fillRule="evenodd"
@@ -18,14 +18,14 @@ const Footer = () => {
                   />
                 </svg>
               </button>
-              <button className="flex bg-white text-gray-800 border font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2">
+              <button className="flex bg-white text-gray-800 border font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2 hover:bg-gray-100">
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path
                     d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"
                   />
                 </svg>
               </button>
-              <button className="flex bg-white text-gray-800 border font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2">
+              <button className="flex bg-white text-gray-800 border font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2 hover:bg-gray-100">
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path
                     fillRule="evenodd"
@@ -34,7 +34,7 @@ const Footer = () => {
                   />
                 </svg>
               </button>
-              <button className="flex bg-white text-gray-800 border font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2">
+              <button className="flex bg-white text-gray-800 border font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2 hover:bg-gray-100">
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path
                     fillRule="evenodd"
@@ -48,7 +48,7 @@ const Footer = () => {
           <div className="w-full lg:w-6/12 px-4">
             <div className="flex flex-wrap items-top mb-6">
               <div className="w-full lg:w-4/12 px-4 ml-auto">
-                <span className="block uppercase text-gray-500 text-sm font-semibold mb-2">Về chúng tôi</span>
+                <span className="block uppercase text-gray-950 text-sm font-semibold mb-2">Về chúng tôi</span>
                 <ul className="list-unstyled">
                   <li>
                     <a className="text-gray-600 hover:text-gray-800 font-semibold block pb-2 text-sm cursor-pointer">Thông tin công ty</a>
@@ -65,7 +65,7 @@ const Footer = () => {
                 </ul>
               </div>
               <div className="w-full lg:w-4/12 px-4">
-                <span className="block uppercase text-gray-500 text-sm font-semibold mb-2">Từ khóa</span>
+                <span className="block uppercase text-gray-950 text-sm font-semibold mb-2">Từ khóa</span>
                 <ul className="list-unstyled">
                   <li>
                     <a className="text-gray-600 hover:text-gray-800 font-semibold block pb-2 text-sm cursor-pointer">Tìm việc làm</a>
